@@ -6,74 +6,21 @@
 		<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0">
 		<link rel="stylesheet" type="text/css" href="assets/css/index.css">
 		<script src="assets/lib/angular.min.js"></script>
-		<!--script src="assets/lib/angular-route.min.js"></script-->
-		<script>
-			var basketAppModule = angular.module('basketApp', []);
-			
-			basketAppModule.factory('idProvider', function() {
-				var autoIncrement = (localStorage.getItem('autoIncrement')!==null) ? 
-					parseInt(localStorage.getItem('autoIncrement')) :	0;
-				localStorage.setItem('autoIncrement', autoIncrement);
-				return {
-					newID: function() {
-						localStorage.setItem('autoIncrement', ++autoIncrement);
-						return autoIncrement - 1;
-					}
-				};
-			});
-
-			basketAppModule.controller('ListCtrl', ['$scope', 'idProvider', function($scope, idProvider) {
-				function buildShoppingItemObject(name) {
-					return {
-						id: idProvider.newID(),
-						name: name.trim(),
-						list: ''
-					}
-				}
-
-				$scope.shoppingItems = (localStorage.getItem('shoppingItems')!==null) ? JSON.parse(localStorage.getItem('shoppingItems')) :	[buildShoppingItemObject('cheese'), buildShoppingItemObject('wallet'), buildShoppingItemObject('pants')];
-
-				$scope.addShoppingItem = function() {
-					if($scope.enteredShoppingItem) {
-						$scope.shoppingItems.push(
-							buildShoppingItemObject($scope.enteredShoppingItem)
-						);
-						$scope.enteredShoppingItem = '';
-						$scope.saveList();
-					}
-					else {
-						$scope.enteredShoppingItem = '';
-					}
-				};
-
-				$scope.removeShoppingItem = function(shoppingItemID) {
-					// find the idx of the item with the id
-					var i = $scope.shoppingItems.filter(function(entry){
-						return entry.id === shoppingItemID;
-					})[0];
-					var idx = $scope.shoppingItems.indexOf(i);
-					$scope.shoppingItems.splice(idx, 1);
-					$scope.saveList();
-				};
-
-				$scope.saveList = function() {
-					localStorage.setItem('shoppingItems', JSON.stringify($scope.shoppingItems));
-				}
-
-				$scope.saveList();
-			}]);
-		</script>
+		<script src="assets/lib/angular-route.min.js"></script>
+		<script src="app/controllers.js"></script>
+		<script src="app/factories.js"></script>
+		<script src="app/app.js"></script>
 	</head>
 	<body>
 		<div ng-controller="ListCtrl">
 			<div>
 				<div ng-repeat="item in shoppingItems track by $index">
-					{{item}} <a href="" ng-click="removeShoppingItem(item.id)">remove</a>
+					{{item.name}} <a href="" ng-click="removeShoppingItem(item.id)">remove</a>
 				</div>
 			</div>
 			<form ng-submit="addShoppingItem()">
-			<input type="text" ng-model="enteredShoppingItem">
-			<input type="submit" value="add">
+				<input type="text" ng-model="enteredShoppingItem">
+				<input type="submit" value="add">
 			</form>
 		</div>
 
