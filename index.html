@@ -8,25 +8,67 @@
 		<script src="assets/lib/angular.min.js"></script>
 		<!--script src="assets/lib/angular-route.min.js"></script-->
 		<script>
-			var basketApp = angular.module('basketApp', []);
-			basketApp.controller('ListCtrl', ['$scope', function($scope) {
-				$scope.shoppingItems = ['cheese', 'wallet', 'pants'];
+			var basketAppModule = angular.module('basketApp', []);
+			
+			basketAppModule.factory('idProvider', function() {
+				var autoIncrement = (localStorage.getItem('autoIncrement')!==null) ? 
+					parseInt(localStorage.getItem('autoIncrement')) :	0;
+				localStorage.setItem('autoIncrement', autoIncrement);
+				return {
+					newID: function() {
+						localStorage.setItem('autoIncrement', ++autoIncrement);
+						return autoIncrement - 1;
+					}
+				};
+			});
+
+			basketAppModule.controller('ListCtrl', ['$scope', 'idProvider', function($scope, idProvider) {
+				function buildShoppingItemObject(name) {
+					return {
+						id: idProvider.newID(),
+						name: name.trim(),
+						list: ''
+					}
+				}
+
+				$scope.shoppingItems = (localStorage.getItem('shoppingItems')!==null) ? JSON.parse(localStorage.getItem('shoppingItems')) :	[buildShoppingItemObject('cheese'), buildShoppingItemObject('wallet'), buildShoppingItemObject('pants')];
+
 				$scope.addShoppingItem = function() {
-					$scope.shoppingItems.push($scope.enteredShoppingItem);
-					$scope.enteredShoppingItem = '';
+					if($scope.enteredShoppingItem) {
+						$scope.shoppingItems.push(
+							buildShoppingItemObject($scope.enteredShoppingItem)
+						);
+						$scope.enteredShoppingItem = '';
+						$scope.saveList();
+					}
+					else {
+						$scope.enteredShoppingItem = '';
+					}
 				};
-				$scope.removeShoppingItem = function(shoppingItem) {
-					var idx = $scope.shoppingItems.indexOf(shoppingItem);
+
+				$scope.removeShoppingItem = function(shoppingItemID) {
+					// find the idx of the item with the id
+					var i = $scope.shoppingItems.filter(function(entry){
+						return entry.id === shoppingItemID;
+					})[0];
+					var idx = $scope.shoppingItems.indexOf(i);
 					$scope.shoppingItems.splice(idx, 1);
+					$scope.saveList();
 				};
+
+				$scope.saveList = function() {
+					localStorage.setItem('shoppingItems', JSON.stringify($scope.shoppingItems));
+				}
+
+				$scope.saveList();
 			}]);
 		</script>
 	</head>
 	<body>
 		<div ng-controller="ListCtrl">
 			<div>
-				<div ng-repeat="item in shoppingItems">
-					{{item}} <a href="" ng-click="removeShoppingItem(item)">remove</a>
+				<div ng-repeat="item in shoppingItems track by $index">
+					{{item}} <a href="" ng-click="removeShoppingItem(item.id)">remove</a>
 				</div>
 			</div>
 			<form ng-submit="addShoppingItem()">
