@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html ng-app='basketApp'>
+	<head>
+		<meta charset="utf-8">
+		<title>Index</title>
+		<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="assets/css/index.css">
+		<script src="assets/lib/angular.min.js"></script>
+		<!--script src="assets/lib/angular-route.min.js"></script-->
+		<script>
+			var basketApp = angular.module('basketApp', []);
+			basketApp.controller('ListCtrl', ['$scope', function($scope) {
+				$scope.shoppingItems = ['cheese', 'wallet', 'pants'];
+				$scope.addShoppingItem = function() {
+					$scope.shoppingItems.push($scope.enteredShoppingItem);
+					$scope.enteredShoppingItem = '';
+				};
+				$scope.removeShoppingItem = function(shoppingItem) {
+					var idx = $scope.shoppingItems.indexOf(shoppingItem);
+					$scope.shoppingItems.splice(idx, 1);
+				};
+			}]);
+		</script>
+	</head>
+	<body>
+		<div ng-controller="ListCtrl">
+			<div>
+				<div ng-repeat="item in shoppingItems">
+					{{item}} <a href="" ng-click="removeShoppingItem(item)">remove</a>
+				</div>
+			</div>
+			<form ng-submit="addShoppingItem()">
+			<input type="text" ng-model="enteredShoppingItem">
+			<input type="submit" value="add">
+			</form>
+		</div>
+
+	</body>
+</html>
