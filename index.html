@@ -4,25 +4,39 @@
 		<meta charset="utf-8">
 		<title>Index</title>
 		<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="assets/css/index.css">
-		<script src="assets/lib/angular.min.js"></script>
-		<script src="assets/lib/angular-route.min.js"></script>
+		<style>
+			.panel-list-item {
+				height: 80px;
+				margin-bottom: 2px;
+			}
+		</style>
+		<script src="assets/lib/angular-1.4.9.min.js"></script>
+		<script src="assets/lib/angular-route-1.4.9.min.js"></script>
+		<script src="assets/lib/angular-animate-1.4.9.min.js"></script>
+		<script src="assets/lib/ui-bootstrap-custom-tpls-1.1.0.min.js"></script>
 		<script src="app/controllers.js"></script>
 		<script src="app/factories.js"></script>
 		<script src="app/app.js"></script>
 	</head>
 	<body>
-		<div ng-controller="ListCtrl">
-			<div>
-				<div ng-repeat="item in shoppingItems track by $index">
-					{{item.name}} <a href="" ng-click="removeShoppingItem(item.id)">remove</a>
-				</div>
-			</div>
+		<div ng-controller="ListCtrl" class="container">
+			<ul class="list-unstyled">
+				<li ng-repeat="item in shoppingItems track by $index" class="panel panel-default panel-list-item">
+					<div class="panel-body">
+						<span>{{item.name}}</span> 
+						<div class="pull-right">
+							<a href="" ng-click="removeShoppingItem(item.id)">remove</a>
+						</div>
+					</div>
+				</li>
+			</ul>
 			<form ng-submit="addShoppingItem()">
 				<input type="text" ng-model="enteredShoppingItem">
 				<input type="submit" value="add">
 			</form>
+			<button ng-controller="AppCtrl" ng-click="resetBasketApp()">Reset</button>
 		</div>
-
 	</body>
 </html>

@@ -7,7 +7,7 @@ angular.module('controllers', [])
 				list: ''
 			}
 		}
-		
+
 		$scope.shoppingItems = (localStorage.getItem('shoppingItems')!==null) ? JSON.parse(localStorage.getItem('shoppingItems')) :	[buildShoppingItemObject('cheese'), buildShoppingItemObject('wallet'), buildShoppingItemObject('pants')];
 
 		$scope.addShoppingItem = function() {
@@ -38,4 +38,10 @@ angular.module('controllers', [])
 		}
 
 		$scope.saveList();
+	}])
+	.controller('AppCtrl', ['$scope', '$window', function($scope, $window) {
+		$scope.resetBasketApp = function() {	
+			localStorage.clear();
+			$window.location.reload();
+		}
 	}]);
