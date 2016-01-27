@@ -1,5 +1,5 @@
 angular.module('factories', [])
-	.factory('StorageService', function StorageServiceFactory() {
+	.factory('StorageService', function () {
 		function set(key, data) {
 			localStorage.setItem(key, JSON.stringify(data));
 		}
@@ -17,44 +17,127 @@ angular.module('factories', [])
 	})
 	.factory('IdService', ['StorageService', 
 		function IdServiceFactory(StorageService) {
-			var autoIncrement = (StorageService.get('autoIncrement') !== null) ? 
-				parseInt(StorageService.get('autoIncrement')) : 0;
-			StorageService.set('autoIncrement', autoIncrement);
-			return function() {
-				StorageService.set('autoIncrement', ++autoIncrement);
+			var autoIncrement;
+			function init() {
+				autoIncrement = parseInt(StorageService.get('autoIncrement'));
+				console.log("autoIncrement: ", autoIncrement);
+			}
+			function newID() {
+				autoIncrement = autoIncrement + 1;
+				StorageService.set('autoIncrement', autoIncrement);
 				return autoIncrement - 1;
+			}
+			return {
+				init: init,
+				newID: newID
 			};
 		}
 	])
-	.factory('UserCreator', ['IdService', 
-		function UserCreatorFactory(IdService) {
-			return function(userName) {
+	.factory('Lists', ['IdService', 'StorageService',
+		function ListsFactory(IdService, StorageService) {
+			lists = {};
+			lists.data = [];
+
+			lists.init = init;
+			lists.add = add;
+			lists.remove = remove;
+			lists.createNew = createNew;
+
+			function init() {
+				lists.data = StorageService.get('basketLists');
+			}
+
+			function createNew(ownerID, listName) {
 				return {
-					"id": IdService(),
-					"name": userName.trim()
-				};
-			};
-		}
-	])
-	.factory('ListCreator', ['IdService', 
-		function ListCreatorFactory(IdService) {
-			return function(ownerID, listName) {
-				return {
-					"id": IdService(),
+					"id": IdService.newID(),
 					"name": listName.trim(),
 					"owner_id": ownerID,
 					"list_type": "normal",
 					"shared_with": [],
 					"added_date": Date.now()
-				}
-			};
+				};
+			}
+
+			function add(user) {
+				lists.data.push(user);
+				saveToStorage();
+			}
+
+			function remove(ListID) {
+				var i = lists.data.filter(function(entry) {
+					return entry.id === ListID;
+				})[0];
+				var idx = lists.data.indexOf(i);
+				lists.data.splice(idx, 1);
+				saveToStorage();
+			}
+
+			function saveToStorage() {
+				StorageService.set('basketLists', lists.data);
+			}
+
+			return lists;
 		}
 	])
-	.factory('ItemCreator', ['IdService', 
-		function ItemCreatorFactory(IdService) {
-			return function(ownerID, listID, itemName) {
+	.factory('Users', ['IdService', 'StorageService',
+		function UsersFactory(IdService, StorageService) {
+			users = {};
+			users.data = [];
+
+			users.init = init;
+			users.add = add;
+			users.remove = remove;
+			users.createNew = createNew;
+
+			function init() {
+				users.data = StorageService.get('basketUsers');
+			}
+
+			function createNew(userName) {
 				return {
-					"id": IdService(),
+					"id": IdService.newID(),
+					"name": userName.trim()
+				};
+			}
+
+			function add(user) {
+				users.data.push(user);
+				saveToStorage();
+			}
+
+			function remove(UserID) {
+				var i = users.data.filter(function(entry) {
+					return entry.id === UserID;
+				})[0];
+				var idx = users.data.indexOf(i);
+				users.data.splice(idx, 1);
+				saveToStorage();
+			}
+
+			function saveToStorage() {
+				StorageService.set('basketUsers', users.data);
+			}
+
+			return users;
+		}
+	])
+	.factory('Items', ['IdService', 'StorageService',
+		function ItemsFactory(IdService, StorageService) {
+			items = {};
+			items.data = [];
+
+			items.init = init;
+			items.add = add;
+			items.remove = remove;
+			items.createNew = createNew;
+
+			function init() {
+				items.data = StorageService.get('basketItems');
+			}
+
+			function createNew(ownerID, listID, itemName) {
+				return {
+					"id": IdService.newID(),
 					"name": itemName.trim(),
 					"checked": false,
 					"owner_id": ownerID,
@@ -63,17 +146,6 @@ angular.module('factories', [])
 					"added_date": Date.now()
 				}
 			};
-		}
-	])
-	.factory('Items', ['ItemCreator', 'StorageService', 
-		function ItemsFactory(ItemCreator, StorageService) {
-			items = {};
-			
-			items.data = (StorageService.get('shoppingItems') !== null) ? 
-				StorageService.get('shoppingItems') :	
-				[ItemCreator(1,1,'cheese'), ItemCreator(1,1,'wallet'), ItemCreator(1,1,'pants')];
-			items.add = add;
-			items.remove = remove;
 
 			function add(item) {
 				items.data.push(item);
@@ -90,7 +162,7 @@ angular.module('factories', [])
 			}
 
 			function saveToStorage() {
-				StorageService.set('shoppingItems', items.data);
+				StorageService.set('basketItems', items.data);
 			}
 
 			return items;

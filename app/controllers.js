@@ -1,20 +1,18 @@
 angular.module('controllers', [])
-	.controller('UserCtrl', ['$scope', 'IdProvider', 
-		function ($scope, IdProvider) {
-
-		// $scope.shoppingItems = (localStorage.getItem('shoppingItems')!==null) ? JSON.parse(localStorage.getItem('shoppingItems')) :	[buildShoppingItemObject('cheese'), buildShoppingItemObject('wallet'), buildShoppingItemObject('pants')];
+	.controller('UserCtrl', ['$scope', 'Users',
+		function ($scope, Users) {
 
 		}
 	])
-	.controller('ListCtrl', ['$scope', 'Items', 'ItemCreator', 
-		function ($scope, Items, ItemCreator) {
+	.controller('ListCtrl', ['$scope', 'Items',
+		function ($scope, Items) {
 			$scope.shoppingItems = Items.data;
 			$scope.addShoppingItem = addShoppingItem;
 			$scope.removeShoppingItem = removeShoppingItem;
 
 			function addShoppingItem () {
 				if($scope.enteredShoppingItem) {
-					Items.add(ItemCreator(1, 1, $scope.enteredShoppingItem));
+					Items.add(Items.createNew(1, 1, $scope.enteredShoppingItem));
 					$scope.enteredShoppingItem = '';
 				}
 				else {
@@ -27,12 +25,12 @@ angular.module('controllers', [])
 			};
 		}
 	])
-	.controller('AppCtrl', ['$scope', '$window', 'StorageService', 
+	.controller('AppCtrl', ['$scope', '$window', 'StorageService',
 		function($scope, $window, StorageService) {
 			$scope.resetBasketApp = resetBasketApp;
 
 			function resetBasketApp() {
-				localStorage.clear();
+				StorageService.clearAll();
 				$window.location.reload();
 			}
 		}
