@@ -1,5 +1,12 @@
 angular.module('controllers', [])
 	.controller('ListCtrl', ['$scope', 'idProvider', function($scope, idProvider) {
+		$scope.shoppingItems = (localStorage.getItem('shoppingItems')!==null) ? JSON.parse(localStorage.getItem('shoppingItems')) :	[buildShoppingItemObject('cheese'), buildShoppingItemObject('wallet'), buildShoppingItemObject('pants')];
+		$scope.addShoppingItem = addShoppingItem;
+		$scope.removeShoppingItem = removeShoppingItem;
+		$scope.saveList = saveList;
+
+		$scope.saveList();
+
 		function buildShoppingItemObject(name) {
 			return {
 				id: idProvider.newID(),
@@ -8,9 +15,7 @@ angular.module('controllers', [])
 			}
 		}
 
-		$scope.shoppingItems = (localStorage.getItem('shoppingItems')!==null) ? JSON.parse(localStorage.getItem('shoppingItems')) :	[buildShoppingItemObject('cheese'), buildShoppingItemObject('wallet'), buildShoppingItemObject('pants')];
-
-		$scope.addShoppingItem = function() {
+		function addShoppingItem () {
 			if($scope.enteredShoppingItem) {
 				$scope.shoppingItems.push(
 					buildShoppingItemObject($scope.enteredShoppingItem)
@@ -23,9 +28,9 @@ angular.module('controllers', [])
 			}
 		};
 
-		$scope.removeShoppingItem = function(shoppingItemID) {
+		function removeShoppingItem(shoppingItemID) {
 			// find the idx of the item with the id
-			var i = $scope.shoppingItems.filter(function(entry){
+			var i = $scope.shoppingItems.filter(function(entry) {
 				return entry.id === shoppingItemID;
 			})[0];
 			var idx = $scope.shoppingItems.indexOf(i);
@@ -33,14 +38,14 @@ angular.module('controllers', [])
 			$scope.saveList();
 		};
 
-		$scope.saveList = function() {
+		function saveList() {
 			localStorage.setItem('shoppingItems', JSON.stringify($scope.shoppingItems));
 		}
-
-		$scope.saveList();
 	}])
 	.controller('AppCtrl', ['$scope', '$window', function($scope, $window) {
-		$scope.resetBasketApp = function() {	
+		$scope.resetBasketApp = resetBasketApp;
+
+		function resetBasketApp() {
 			localStorage.clear();
 			$window.location.reload();
 		}
