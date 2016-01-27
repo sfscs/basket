@@ -2,5 +2,6 @@ angular.module('basketApp', [
 	'ui.bootstrap',
 	'ngRoute',
 	'controllers',
-	'factories'
+	'factories',
+	'filters'
 ]);
