@@ -1,6 +1,13 @@
 angular.module('controllers', [])
-	.controller('ListCtrl', ['$scope', 'idProvider', function($scope, idProvider) {
-		$scope.shoppingItems = (localStorage.getItem('shoppingItems')!==null) ? JSON.parse(localStorage.getItem('shoppingItems')) :	[buildShoppingItemObject('cheese'), buildShoppingItemObject('wallet'), buildShoppingItemObject('pants')];
+.controller('UserCtrl', ['$scope', 'IdProvider', function($scope, IdProvider) {
+
+	$scope.shoppingItems = (localStorage.getItem('shoppingItems')!==null) ? JSON.parse(localStorage.getItem('shoppingItems')) :	[buildShoppingItemObject('cheese'), buildShoppingItemObject('wallet'), buildShoppingItemObject('pants')];
+
+}])
+	.controller('ListCtrl', ['$scope', 'ItemCreator', function($scope, ItemCreator) {
+		$scope.shoppingItems = (localStorage.getItem('shoppingItems')!==null) ? 
+			JSON.parse(localStorage.getItem('shoppingItems')) :	
+			[buildShoppingItemObject('cheese'), buildShoppingItemObject('wallet'), buildShoppingItemObject('pants')];
 		$scope.addShoppingItem = addShoppingItem;
 		$scope.removeShoppingItem = removeShoppingItem;
 		$scope.saveList = saveList;
@@ -9,7 +16,7 @@ angular.module('controllers', [])
 
 		function buildShoppingItemObject(name) {
 			return {
-				id: idProvider.newID(),
+				id: IdProvider.newID(),
 				name: name.trim(),
 				list: ''
 			}
@@ -18,7 +25,7 @@ angular.module('controllers', [])
 		function addShoppingItem () {
 			if($scope.enteredShoppingItem) {
 				$scope.shoppingItems.push(
-					buildShoppingItemObject($scope.enteredShoppingItem)
+					ItemCreator.newItem(1, 1, $scope.enteredShoppingItem)
 				);
 				$scope.enteredShoppingItem = '';
 				$scope.saveList();
