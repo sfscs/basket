@@ -5,15 +5,15 @@ angular.module('basketApp', [
 	'factories',
 	'filters'
 ]).run(['$rootScope', 'StorageService', 'IdService', 'Users', 'Lists', 'Items', function ($rootScope, StorageService, IdService, Users, Lists, Items) {
-	if (StorageService.get('autoIncrement') === null) {
+	if (StorageService.get('auto_increment') === null) {
 		StorageService.clearAll();
-		StorageService.set('autoIncrement', 0);
+		StorageService.set('auto_increment', 0);
 		IdService.init();
 		var newUser = Users.createNew('Jake');
-		StorageService.set('basketUsers', [newUser]);
+		StorageService.set('users', [newUser]);
 		var newList = Lists.createNew(newUser.id, 'My List');
-		StorageService.set('basketLists', [newList]);
-		StorageService.set('basketItems', [
+		StorageService.set('lists', [newList]);
+		StorageService.set('items', [
 			Items.createNew(newUser.id, newList.id, 'cheese'),
 			Items.createNew(newUser.id, newList.id, 'wallet'),
 			Items.createNew(newUser.id, newList.id, 'pants')

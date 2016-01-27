@@ -1,13 +1,18 @@
 angular.module('factories', [])
 	.factory('StorageService', function () {
+		var keyPrefix = 'basket_';
 		function set(key, data) {
-			localStorage.setItem(key, JSON.stringify(data));
+			localStorage.setItem(keyPrefix + key, JSON.stringify(data));
 		}
 		function get(key) {
-			return JSON.parse(localStorage.getItem(key));
+			return JSON.parse(localStorage.getItem(keyPrefix + key));
 		}
 		function clearAll() {
 			localStorage.clear();
+			localStorage.removeItem(keyPrefix + 'auto_increment');
+			localStorage.removeItem(keyPrefix + 'users');
+			localStorage.removeItem(keyPrefix + 'lists');
+			localStorage.removeItem(keyPrefix + 'items');
 		}
 		return {
 			get: get,
@@ -19,12 +24,11 @@ angular.module('factories', [])
 		function IdServiceFactory(StorageService) {
 			var autoIncrement;
 			function init() {
-				autoIncrement = parseInt(StorageService.get('autoIncrement'));
-				console.log("autoIncrement: ", autoIncrement);
+				autoIncrement = parseInt(StorageService.get('auto_increment'));
 			}
 			function newID() {
 				autoIncrement = autoIncrement + 1;
-				StorageService.set('autoIncrement', autoIncrement);
+				StorageService.set('auto_increment', autoIncrement);
 				return autoIncrement - 1;
 			}
 			return {
@@ -44,7 +48,7 @@ angular.module('factories', [])
 			lists.createNew = createNew;
 
 			function init() {
-				lists.data = StorageService.get('basketLists');
+				lists.data = StorageService.get('lists');
 			}
 
 			function createNew(ownerID, listName) {
@@ -73,7 +77,7 @@ angular.module('factories', [])
 			}
 
 			function saveToStorage() {
-				StorageService.set('basketLists', lists.data);
+				StorageService.set('lists', lists.data);
 			}
 
 			return lists;
@@ -90,7 +94,7 @@ angular.module('factories', [])
 			users.createNew = createNew;
 
 			function init() {
-				users.data = StorageService.get('basketUsers');
+				users.data = StorageService.get('users');
 			}
 
 			function createNew(userName) {
@@ -115,7 +119,7 @@ angular.module('factories', [])
 			}
 
 			function saveToStorage() {
-				StorageService.set('basketUsers', users.data);
+				StorageService.set('users', users.data);
 			}
 
 			return users;
@@ -132,7 +136,7 @@ angular.module('factories', [])
 			items.createNew = createNew;
 
 			function init() {
-				items.data = StorageService.get('basketItems');
+				items.data = StorageService.get('items');
 			}
 
 			function createNew(ownerID, listID, itemName) {
@@ -162,7 +166,7 @@ angular.module('factories', [])
 			}
 
 			function saveToStorage() {
-				StorageService.set('basketItems', items.data);
+				StorageService.set('items', items.data);
 			}
 
 			return items;
