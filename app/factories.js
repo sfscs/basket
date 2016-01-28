@@ -1,4 +1,5 @@
 angular.module('factories', [])
+
 	.factory('StorageService', function () {
 		var keyPrefix = 'basket_';
 		function set(key, data) {
@@ -26,14 +27,14 @@ angular.module('factories', [])
 			function init() {
 				autoIncrement = parseInt(StorageService.get('auto_increment'));
 			}
-			function newID() {
+			function newId() {
 				autoIncrement = autoIncrement + 1;
 				StorageService.set('auto_increment', autoIncrement);
 				return autoIncrement - 1;
 			}
 			return {
 				init: init,
-				newID: newID
+				newId: newId
 			};
 		}
 	])
@@ -51,11 +52,11 @@ angular.module('factories', [])
 				lists.data = StorageService.get('lists');
 			}
 
-			function createNew(ownerID, listName) {
+			function createNew(ownerId, listName) {
 				return {
-					"id": IdService.newID(),
+					"id": IdService.newId(),
 					"name": listName.trim(),
-					"owner_id": ownerID,
+					"owner_id": ownerId,
 					"list_type": "normal",
 					"shared_with": [],
 					"added_date": Date.now()
@@ -67,9 +68,9 @@ angular.module('factories', [])
 				saveToStorage();
 			}
 
-			function remove(ListID) {
+			function remove(listId) {
 				var i = lists.data.filter(function(entry) {
-					return entry.id === ListID;
+					return entry.id === listId;
 				})[0];
 				var idx = lists.data.indexOf(i);
 				lists.data.splice(idx, 1);
@@ -92,15 +93,30 @@ angular.module('factories', [])
 			users.add = add;
 			users.remove = remove;
 			users.createNew = createNew;
+			users.getUserById = getUserById;
+			users.getUserIdx = getUserIdx;
 
 			function init() {
 				users.data = StorageService.get('users');
 			}
 
+			function getUserById(userId) {
+				return users.data[getUserIdx(userId)];
+			}
+
+			function getUserIdx(userId) {
+				var i = users.data.filter(function(entry) {
+					return entry.id === userId
+				})[0];
+				var idx = users.data.indexOf(i);
+				return idx;
+			}
+
 			function createNew(userName) {
 				return {
-					"id": IdService.newID(),
-					"name": userName.trim()
+					"id": IdService.newId(),
+					"name": userName.trim(),
+					"last_list": ''
 				};
 			}
 
@@ -109,9 +125,9 @@ angular.module('factories', [])
 				saveToStorage();
 			}
 
-			function remove(UserID) {
+			function remove(userID) {
 				var i = users.data.filter(function(entry) {
-					return entry.id === UserID;
+					return entry.id === userID;
 				})[0];
 				var idx = users.data.indexOf(i);
 				users.data.splice(idx, 1);
@@ -139,13 +155,13 @@ angular.module('factories', [])
 				items.data = StorageService.get('items');
 			}
 
-			function createNew(ownerID, listID, itemName) {
+			function createNew(ownerID, listId, itemName) {
 				return {
-					"id": IdService.newID(),
+					"id": IdService.newId(),
 					"name": itemName.trim(),
 					"checked": false,
 					"owner_id": ownerID,
-					"list_id": listID,
+					"list_id": listId,
 					"assigned_to_id": ownerID,
 					"added_date": Date.now()
 				}
@@ -156,9 +172,9 @@ angular.module('factories', [])
 				saveToStorage();
 			}
 
-			function remove(shoppingItemID) {
+			function remove(shoppingItemId) {
 				var i = items.data.filter(function(entry) {
-					return entry.id === shoppingItemID;
+					return entry.id === shoppingItemId;
 				})[0];
 				var idx = items.data.indexOf(i);
 				items.data.splice(idx, 1);
@@ -170,6 +186,37 @@ angular.module('factories', [])
 			}
 
 			return items;
+		}
+	])
+	.factory('AppData', ['$rootScope', 'Users', 'StorageService', 
+		function AppDataFactory($rootScope, Users, StorageService) {
+			var appData = {};
+			appData.data = {};
+			appData.data.currentUser = '';
+			appData.data.currentList = '';
+			appData.createNew = createNew;
+			appData.init = init;
+
+			function createNew() {
+				return {
+					currentUser: '',
+					currentList: ''
+				};
+			}
+
+			function init() {
+				appData.data = StorageService.get('app_data');
+				$rootScope.$watch(function() { 
+					return appData.data;
+				}, function(newValue, oldValue) {
+					saveToStorage();
+				});
+			}
+
+			function saveToStorage() {
+				StorageService.set('app_data', appData.data);
+			}
+			return appData;
 		}
 	])
 ;

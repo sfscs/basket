@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app='basketApp'>
+<html ng-app='basketApp' ng-controller='AppCtrl'>
 	<head>
 		<meta charset="utf-8">
 		<title>Index</title>
@@ -12,20 +12,27 @@
 				margin-bottom: 2px;
 			}
 		</style>
-		<script src="assets/lib/angular-1.4.9.min.js"></script>
+		<script src="assets/lib/angular-1.4.9.js"></script>
 		<script src="assets/lib/angular-route-1.4.9.min.js"></script>
 		<script src="assets/lib/angular-animate-1.4.9.min.js"></script>
 		<script src="assets/lib/ui-bootstrap-custom-tpls-1.1.0.min.js"></script>
 		<script src="app/controllers.js"></script>
 		<script src="app/factories.js"></script>
 		<script src="app/filters.js"></script>
+		<script src="app/directives.js"></script>
 		<script src="app/app.js"></script>
 	</head>
 	<body>
+		<div ng-controller="UserCtrl" class="container">
+			<select ng-model="selectedUser" ng-options="user.name for user in users">
+			</select>
+			<div>currently selected: {{selectedUser.name}}</div>
+		</div>
 		<div ng-controller="ListCtrl" class="container">
 			<ul class="list-unstyled">
-				<li ng-repeat="item in shoppingItems track by $index" class="panel panel-default panel-list-item">
+				<li ng-repeat="item in shoppingItems | filter:{owner_id: currentUser}" class="panel panel-default panel-list-item">
 					<div class="panel-body">
+						<div>{{item.owner_id}}</div>
 						<span>{{item.name}}</span> 
 						<div class="pull-right">
 							<a href="" ng-click="removeShoppingItem(item.id)">remove</a>
@@ -41,7 +48,7 @@
 				<input type="submit" value="add">
 			</form>
 			<br>
-			<button ng-controller="AppCtrl" ng-click="resetBasketApp()">Reset</button>
+			<button ng-click="resetBasketApp()">Reset</button>
 		</div>
 	</body>
 </html>
