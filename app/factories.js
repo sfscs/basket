@@ -47,9 +47,23 @@ angular.module('factories', [])
 			lists.add = add;
 			lists.remove = remove;
 			lists.createNew = createNew;
+			lists.getListById = getListById;
+			lists.getListIdx = getListIdx;
 
 			function init() {
 				lists.data = StorageService.get('lists');
+			}
+
+			function getListById(listId) {
+				return lists.data[getListIdx(listId)];
+			}
+
+			function getListIdx(listId) {
+				var i = lists.data.filter(function(entry) {
+					return entry.id === listId
+				})[0];
+				var idx = lists.data.indexOf(i);
+				return idx;
 			}
 
 			function createNew(ownerId, listName) {
@@ -195,6 +209,7 @@ angular.module('factories', [])
 			appData.data.currentUser = '';
 			appData.data.currentList = '';
 			appData.createNew = createNew;
+			appData.saveToStorage = saveToStorage;
 			appData.init = init;
 
 			function createNew() {
