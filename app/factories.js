@@ -30,6 +30,7 @@ angular.module('factories', [])
 			function newId() {
 				autoIncrement = autoIncrement + 1;
 				StorageService.set('auto_increment', autoIncrement);
+				console.log('IdService: ', (autoIncrement -1));
 				return autoIncrement - 1;
 			}
 			return {
@@ -104,14 +105,22 @@ angular.module('factories', [])
 			users.data = [];
 
 			users.init = init;
+			users.editUser = editUser;
 			users.add = add;
 			users.remove = remove;
 			users.createNew = createNew;
 			users.getUserById = getUserById;
 			users.getUserIdx = getUserIdx;
+			users.saveToStorage = saveToStorage;
 
 			function init() {
 				users.data = StorageService.get('users');
+			}
+
+			function editUser(userId, key, value) {
+				var idx = users.getUserIdx(userId);
+				users.data[idx][key] = value;
+				saveToStorage();
 			}
 
 			function getUserById(userId) {
@@ -210,7 +219,11 @@ angular.module('factories', [])
 			appData.data.currentList = '';
 			appData.createNew = createNew;
 			appData.saveToStorage = saveToStorage;
+			appData.subscribe = subscribe;
+			appData.publish = publish;
 			appData.init = init;
+
+			var _subscribers = [];
 
 			function createNew() {
 				return {
@@ -230,6 +243,26 @@ angular.module('factories', [])
 
 			function saveToStorage() {
 				StorageService.set('app_data', appData.data);
+			}
+
+			function subscribe(cb) {
+				console.log('subscriber!');
+				_subscribers.push(cb);
+			}
+
+			function publish(e) {
+				switch(e.what) {
+					case 'userChange':
+						appData.data.currentUser = e.value;
+						break;
+					case 'listChange':
+						appData.data.currentList = e.value;
+						break;
+				}
+				console.log('AppData received: ', e);
+				angular.forEach(_subscribers, function(cb) {
+					cb(e);
+				});
 			}
 			return appData;
 		}

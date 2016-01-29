@@ -1,16 +1,12 @@
-angular.module('filters', [])
+angular.module('filters')
 	.filter('userHasAccess', function() {
 		return function (input, userId) {
-			console.log("filter is run");
-			console.log("input", input);
-			console.log("userId", userId);
+			// console.log("filter is run");
+			// console.log("input", input);
+			// console.log("userId", userId);
 			var output = [];
-
-			
 			angular.forEach(input, function(list, key) {
 				// check if the user is the owner
-				console.log("list.owner_id", list.owner_id);
-				console.log("userId", userId);
 				if(list.owner_id === userId) {
 					this.push(list);
 				}
@@ -22,6 +18,17 @@ angular.module('filters', [])
 							that.push(list);
 						}
 					});
+				}
+			}, output);
+			return output;
+		}
+	})
+	.filter('itemInList', function() {
+		return function(input, listId) {
+			var output = [];
+			angular.forEach(input, function(item, key) {
+				if (item.list_id === listId) {
+					this.push(item);
 				}
 			}, output);
 			return output;

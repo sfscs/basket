@@ -1,10 +1,10 @@
 angular.module('basketApp', [
 	'ui.bootstrap',
 	'ngRoute',
-	'controllers',
-	'factories',
+	'services',	
+	'directives',
 	'filters',
-	'directives'
+	'controllers',
 ]).run(['$rootScope', 'StorageService', 'IdService', 'Users', 'Lists', 'Items', 'AppData', 
 	function ($rootScope, StorageService, IdService, Users, Lists, Items, AppData) {
 		if (StorageService.get('auto_increment') === null) {
@@ -20,9 +20,12 @@ angular.module('basketApp', [
 			var newList1 = Lists.createNew(newUser1.id, 'My List');
 			var newList2 = Lists.createNew(newUser2.id, 'My List 2');
 
+			// test shared list
+			newList2.shared_with.push(newUser1.id);
+
 			newUser1.last_list = newList1.id;
 			newUser2.last_list = newList2.id;
-			
+
 			StorageService.set('users', [newUser1, newUser2]);
 
 			StorageService.set('lists', [newList1, newList2]);
@@ -37,6 +40,8 @@ angular.module('basketApp', [
 			
 			var newAppData = AppData.createNew();
 			newAppData.currentUser = newUser1.id;
+			newAppData.currentList = newList1.id;
+			console.log(newAppData);
 			StorageService.set('app_data', newAppData);
 		}
 		AppData.init();
@@ -44,5 +49,10 @@ angular.module('basketApp', [
 		Users.init();
 		Lists.init();
 		Items.init();
+		// AppData.publish({
+		// 	who: 'AppData',
+		// 	what: 'listChange',
+		// 	value: 
+		// }};
 	}
 ]);

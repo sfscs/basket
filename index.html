@@ -11,13 +11,24 @@
 				height: 80px;
 				margin-bottom: 2px;
 			}
+			.container-list-container {
+				max-width: 680px;
+			}
 		</style>
 		<script src="assets/lib/angular-1.4.9.js"></script>
 		<script src="assets/lib/angular-route-1.4.9.min.js"></script>
 		<script src="assets/lib/angular-animate-1.4.9.min.js"></script>
 		<script src="assets/lib/ui-bootstrap-custom-tpls-1.1.0.min.js"></script>
-		<script src="app/controllers.js"></script>
-		<script src="app/factories.js"></script>
+		<script src="app/modules.js"></script>
+		<script src="app/services/storageService.js"></script>
+		<script src="app/services/idService.js"></script>
+		<script src="app/services/lists.js"></script>
+		<script src="app/services/users.js"></script>
+		<script src="app/services/items.js"></script>
+		<script src="app/services/appData.js"></script>
+		<script src="app/controllers/userCtrl.js"></script>
+		<script src="app/controllers/listCtrl.js"></script>
+		<script src="app/controllers/appCtrl.js"></script>
 		<script src="app/filters.js"></script>
 		<script src="app/directives.js"></script>
 		<script src="app/app.js"></script>
@@ -28,14 +39,14 @@
 			</select>
 			<div>currently selected: {{selectedUser.name}}</div>
 		</div>
-		<div ng-controller="ListCtrl" class="container">
+		<div ng-controller="ListCtrl" class="container container-list-container">
 
-			<select class="form-control" ng-model="selectedList" ng-options="list.name for list in shoppingLists | userHasAccess:currentUser"></select>
+			<select class="form-control" ng-model="selectedList" ng-change="changeList(selectedList)" ng-options="list.name for list in shoppingLists | userHasAccess:currentUser"></select>
 
 			<ul class="list-unstyled">
-				<li ng-repeat="item in shoppingItems | filter:{owner_id: currentUser}" class="panel panel-default panel-list-item">
+				<li class="panel panel-default panel-list-item" ng-repeat="item in shoppingItems | itemInList:selectedList.id" >
 					<div class="panel-body">
-						<div>{{item.owner_id}}</div>
+						<div>Owner ID: {{item.owner_id}} List ID: {{item.list_id}}</div>
 						<span>{{item.name}}</span> 
 						<div class="pull-right">
 							<a href="" ng-click="removeShoppingItem(item.id)">remove</a>
