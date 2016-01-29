@@ -14,18 +14,13 @@ angular.module('controllers').controller('UserCtrl',
 				}
 			}
 		});
-
-		$scope.$watch(
-			$scope.selectedUser, 
-			function(newValue, oldValue) {
-				if (newValue !== oldValue) {
-					AppData.publish({
-						who: 'UserCtrl',
-						what: 'userChange',
-						value: $scope.selectedUser.id
-					});
-				}
-			}
-		);
+		$scope.changeUser = function(user) {
+			$scope.selectedUser = user;
+			AppData.publish({
+				who: 'UserCtrl',
+				what: 'userChange',
+				value: $scope.selectedUser.id
+			});
+		}
 	}
 ]);

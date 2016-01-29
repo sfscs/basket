@@ -7,7 +7,6 @@ angular.module('services').factory('IdService', ['StorageService',
 		function newId() {
 			autoIncrement = autoIncrement + 1;
 			StorageService.set('auto_increment', autoIncrement);
-			console.log('IdService: ', (autoIncrement -1));
 			return autoIncrement - 1;
 		}
 		return {

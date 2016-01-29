@@ -1,9 +1,7 @@
 angular.module('services').factory('AppData', ['$rootScope', 'Users', 'StorageService', 
 	function AppDataFactory($rootScope, Users, StorageService) {
 		var appData = {};
-		appData.data = {};
-		appData.data.currentUser = '';
-		appData.data.currentList = '';
+		appData.data = createNew();
 		appData.createNew = createNew;
 		appData.saveToStorage = saveToStorage;
 		appData.subscribe = subscribe;
