@@ -14,6 +14,7 @@ angular.module('controllers').controller('UserCtrl',
 				}
 			}
 		});
+
 		$scope.changeUser = function(user) {
 			$scope.selectedUser = user;
 			AppData.publish({

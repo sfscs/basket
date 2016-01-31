@@ -7,19 +7,33 @@ angular.module('services').factory('Items', ['IdService', 'StorageService',
 		items.add = add;
 		items.remove = remove;
 		items.createNew = createNew;
+		items.getItemById = getItemById;
+		items.getItemIdx = getItemIdx;
 
 		function init() {
 			items.data = StorageService.get('items');
 		}
 
-		function createNew(ownerID, listId, itemName) {
+		function getItemById(itemId) {
+			return items.data[getItemIdx(itemId)];
+		}
+
+		function getItemIdx(itemId) {
+			var i = items.data.filter(function(entry) {
+				return entry.id === itemId
+			})[0];
+			var idx = items.data.indexOf(i);
+			return idx;
+		}
+
+		function createNew(ownerId, listId, itemName) {
 			return {
 				"id": IdService.newId(),
 				"name": itemName.trim(),
 				"checked": false,
-				"owner_id": ownerID,
+				"owner_id": ownerId,
 				"list_id": listId,
-				"assigned_to_id": ownerID,
+				"assigned_to_id": ownerId,
 				"added_date": Date.now()
 			}
 		};
@@ -30,11 +44,7 @@ angular.module('services').factory('Items', ['IdService', 'StorageService',
 		}
 
 		function remove(shoppingItemId) {
-			var i = items.data.filter(function(entry) {
-				return entry.id === shoppingItemId;
-			})[0];
-			var idx = items.data.indexOf(i);
-			items.data.splice(idx, 1);
+			items.data.splice(getItemIdx(itemId), 1);
 			saveToStorage();
 		}
 

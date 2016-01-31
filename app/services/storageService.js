@@ -12,6 +12,7 @@ angular.module('services').factory('StorageService', function () {
 		localStorage.removeItem(keyPrefix + 'users');
 		localStorage.removeItem(keyPrefix + 'lists');
 		localStorage.removeItem(keyPrefix + 'items');
+		localStorage.removeItem(keyPrefix + 'comments');
 	}
 	return {
 		get: get,

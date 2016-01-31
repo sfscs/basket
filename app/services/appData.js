@@ -31,7 +31,6 @@ angular.module('services').factory('AppData', ['$rootScope', 'Users', 'StorageSe
 		}
 
 		function subscribe(cb) {
-			console.log('subscriber!');
 			_subscribers.push(cb);
 		}
 
@@ -46,7 +45,6 @@ angular.module('services').factory('AppData', ['$rootScope', 'Users', 'StorageSe
 						break;
 				}
 			}
-			console.log('AppData received: ', e);
 			angular.forEach(_subscribers, function(cb) {
 				cb(e);
 			});

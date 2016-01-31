@@ -48,11 +48,7 @@ angular.module('services').factory('Users', ['IdService', 'StorageService',
 		}
 
 		function remove(userID) {
-			var i = users.data.filter(function(entry) {
-				return entry.id === userID;
-			})[0];
-			var idx = users.data.indexOf(i);
-			users.data.splice(idx, 1);
+			users.data.splice(getUserIdx(userId), 1);
 			saveToStorage();
 		}
 

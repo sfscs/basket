@@ -37,17 +37,13 @@ angular.module('services').factory('Lists', ['IdService', 'StorageService',
 			};
 		}
 
-		function add(user) {
-			lists.data.push(user);
+		function add(list) {
+			lists.data.push(list);
 			saveToStorage();
 		}
 
 		function remove(listId) {
-			var i = lists.data.filter(function(entry) {
-				return entry.id === listId;
-			})[0];
-			var idx = lists.data.indexOf(i);
-			lists.data.splice(idx, 1);
+			lists.data.splice(getListIdx(listId), 1);
 			saveToStorage();
 		}
 
