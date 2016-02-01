@@ -1,11 +1,14 @@
-angular.module('controllers').controller('AppCtrl', 
-	['$scope', '$window', 'StorageService',
-	function($scope, $window, StorageService) {
-		$scope.resetBasketApp = resetBasketApp;
+angular
+	.module('controllers')
+	.controller('AppCtrl', AppCtrl);
+	
+AppCtrl.$inject = ['$scope', '$window', 'StorageService'];
 
-		function resetBasketApp() {
-			StorageService.clearAll();
-			$window.location.reload();
-		}
+function AppCtrl($scope, $window, StorageService) {
+	$scope.resetBasketApp = resetBasketApp;
+
+	function resetBasketApp() {
+		StorageService.clearAll();
+		$window.location.reload();
 	}
-]);
+}

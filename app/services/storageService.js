@@ -1,4 +1,8 @@
-angular.module('services').factory('StorageService', function () {
+angular
+	.module('services')
+	.factory('StorageService', StorageServiceFactory);
+
+function StorageServiceFactory() {
 	var keyPrefix = 'basket_';
 	function set(key, data) {
 		localStorage.setItem(keyPrefix + key, JSON.stringify(data));
@@ -19,4 +23,4 @@ angular.module('services').factory('StorageService', function () {
 		set: set,
 		clearAll: clearAll
 	};
-});
+};

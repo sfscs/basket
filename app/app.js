@@ -1,11 +1,13 @@
 angular.module('basketApp', [
 	'ui.bootstrap',
-	'ngRoute',
+	'ui.router',
 	'services',	
 	'directives',
 	'filters',
 	'controllers',
-]).run(['$rootScope', 'StorageService', 'IdService', 'Users', 'Lists', 'Items', 'Comments', 'AppData', 
+])
+
+.run(['$rootScope', 'StorageService', 'IdService', 'Users', 'Lists', 'Items', 'Comments', 'AppData', 
 	function ($rootScope, StorageService, IdService, Users, Lists, Items, Comments, AppData) {
 		if (StorageService.get('auto_increment') === null) {
 			StorageService.clearAll();

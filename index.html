@@ -2,13 +2,16 @@
 <html ng-app='basketApp' ng-controller='AppCtrl'>
 	<head>
 		<meta charset="utf-8">
-		<title>Index</title>
+		<title>Basket</title>
 		<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0">
 		<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="assets/css/index.css">
 		<style>
+			body {
+				background-image: url(assets/img/background.png);
+			}
 			.panel-list-item {
-				height: 80px;
+				min-height: 80px;
 				margin-bottom: 2px;
 			}
 			.container-list-container {
@@ -16,7 +19,7 @@
 			}
 		</style>
 		<script src="assets/lib/angular-1.4.9.js"></script>
-		<script src="assets/lib/angular-route-1.4.9.min.js"></script>
+		<script src="assets/lib/angular-ui-router-0.2.17.js"></script>
 		<script src="assets/lib/angular-animate-1.4.9.min.js"></script>
 		<script src="assets/lib/ui-bootstrap-custom-tpls-1.1.0.min.js"></script>
 		<script src="app/modules.js"></script>
@@ -41,12 +44,25 @@
 			<div>currently selected: {{selectedUser.name}}</div>
 		</div>
 		<div ng-controller="ListCtrl" class="container container-list-container">
-
 			<select class="form-control" ng-model="selectedList" ng-change="changeList(selectedList)" ng-options="list.name for list in shoppingLists | userHasAccess:currentUser"></select>
-
 			<ul class="list-unstyled">
 				<li class="panel panel-default panel-list-item" ng-repeat="item in shoppingItems | itemInList:selectedList.id" >
-					<item></item>
+					<div class="panel-body">
+						<div>Owner ID: {{item.owner_id}} List ID: {{item.list_id}}</div>
+						<span>{{item.name}}</span> 
+						<div class="pull-right">
+							<a href="" ng-click="removeShoppingItem(item.id)">remove</a>
+						</div>
+						<div class="pull-right">
+							{{item.added_date | date:'medium'}}
+						</div>
+						<div class="comment-blocks" ng-model="comments">
+							<div class="">Comments ({{filteredComments.length}})</div>
+							<div class="comment-block" ng-model="comments" ng-repeat="comment in filteredComments = (comments | commentForItem:item.id)">
+								{{comment.comment}} - 
+							</div>
+						</div>
+					</div>
 				</li>
 			</ul>
 			<form ng-submit="addShoppingItem()">
