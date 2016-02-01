@@ -1,5 +1,3 @@
-(function(){
-	
 angular
 	.module('basketApp', [
 		'ui.bootstrap',
@@ -66,5 +64,3 @@ function run($rootScope, StorageService, IdService, Users, Lists, Items, Comment
 	Items.init();
 	Comments.init();
 }
-
-})();
