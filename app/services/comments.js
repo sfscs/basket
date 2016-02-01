@@ -7,6 +7,7 @@ angular.module('services').factory('Comments', ['IdService', 'StorageService',
 		comments.add = add;
 		comments.remove = remove;
 		comments.createNew = createNew;
+		comments.getCommentsByItemId = getCommentsByItemId;
 
 		function init() {
 			comments.data = StorageService.get('comments');
@@ -27,10 +28,21 @@ angular.module('services').factory('Comments', ['IdService', 'StorageService',
 		function createNew(ownerId, itemId, comment) {
 			return {
 				"id": IdService.newId(),
+				"comment": comment,
 				"item_id": itemId,
 				"owner_id": ownerId,
 				"added_date": Date.now()
 			};
+		}
+
+		function getCommentsByItemId(itemId) {
+			var outputArray = [];
+			angular.forEach(comments.data, function(comment, key) {
+				if (comment.item_id === itemId) {
+					this.push(comment);
+				}
+			}, outputArray);
+			return outputArray;
 		}
 
 		function add(comment) {

@@ -1,8 +1,14 @@
 angular.module('directives')
-	.directive('itemList', function() {
+	.directive('item', function() {
 		return {
 			replace: 'true',
-			templateUrl: 'templates/itemList.html'
+			templateUrl: 'templates/item.html'
 		}
 	})
+	.directive('commentBlock', ['Comments', function(Comments) {
+		return {
+			replace: 'true',
+			templateUrl: 'templates/comments.html'
+		}
+	}])
 ;

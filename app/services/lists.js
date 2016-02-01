@@ -14,6 +14,21 @@ angular.module('services').factory('Lists', ['IdService', 'StorageService',
 			lists.data = StorageService.get('lists');
 		}
 
+		function shareList(userId, listId) {
+			// get the list idx
+			var listIdx = getListIdx(listId);
+
+			// get the list
+			var list = getListById(listId);
+
+			// push the user into the shared array
+			list.shared_with.push(userId);
+
+			// save the list
+			lists.data[listIdx] = lists;
+			saveToStorage();
+		}
+
 		function getListById(listId) {
 			return lists.data[getListIdx(listId)];
 		}

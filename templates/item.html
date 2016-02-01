@@ -1,0 +1,14 @@
+<div class="panel-body">
+	<div>Owner ID: {{item.owner_id}} List ID: {{item.list_id}}</div>
+	<span>{{item.name}}</span> 
+	<div class="pull-right">
+		<a href="" ng-click="removeShoppingItem(item.id)">remove</a>
+	</div>
+	<div class="pull-right">
+		{{item.added_date | date:'medium'}}
+	</div>
+	<div class="comment-blocks" ng-model="comments">
+	<comment-block ng-repeat="comment in comments | commentForItem:item.id">
+	</comment-block>
+	</div>
+</div>

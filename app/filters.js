@@ -37,4 +37,15 @@ angular.module('filters')
 			return output;
 		}
 	})
+	.filter('commentForItem', function() {
+		return function(input, itemId) {
+			var output = [];
+			angular.forEach(input, function(comment, key) {
+				if (comment.item_id === itemId) {
+					this.push(comment);
+				}
+			}, output);
+			return output;			
+		}
+	})
 ;

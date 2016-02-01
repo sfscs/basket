@@ -46,16 +46,7 @@
 
 			<ul class="list-unstyled">
 				<li class="panel panel-default panel-list-item" ng-repeat="item in shoppingItems | itemInList:selectedList.id" >
-					<div class="panel-body">
-						<div>Owner ID: {{item.owner_id}} List ID: {{item.list_id}}</div>
-						<span>{{item.name}}</span> 
-						<div class="pull-right">
-							<a href="" ng-click="removeShoppingItem(item.id)">remove</a>
-						</div>
-						<div class="pull-right">
-							{{item.added_date | date:'medium'}}
-						</div>
-					</div>
+					<item></item>
 				</li>
 			</ul>
 			<form ng-submit="addShoppingItem()">

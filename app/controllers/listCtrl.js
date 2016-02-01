@@ -1,6 +1,6 @@
 angular.module('controllers').controller('ListCtrl', 
-	['$scope', 'Lists', 'Users', 'Items', 'AppData', '$timeout',
-	function ($scope, Lists, Users, Items, AppData, $timeout) {
+	['$scope', 'Lists', 'Users', 'Items', 'AppData', 'Comments', '$timeout',
+	function ($scope, Lists, Users, Items, AppData, Comments, $timeout) {
 		// public methods
 		$scope.addShoppingItem = addShoppingItem;
 		$scope.removeShoppingItem = removeShoppingItem;
@@ -16,6 +16,8 @@ angular.module('controllers').controller('ListCtrl',
 
 		// pull the list object from the currentList id and set selectedList to it
 		$scope.selectedList = Lists.getListById(Users.getUserById($scope.currentUser)["last_list"]);
+
+		$scope.comments = Comments.data;
 
 		$scope.changeList = function(list) {
 			$scope.selectedList = list;
@@ -53,12 +55,15 @@ angular.module('controllers').controller('ListCtrl',
 		});
 
 		function addShoppingItem () {
+			console.log("running");
 			if($scope.enteredShoppingItem) {
-				Items.add(Items.createNew($scope.currentUser, 1, $scope.enteredShoppingItem));
+				console.log($scope.enteredShoppingItem);
+				Items.add(Items.createNew($scope.currentUser, $scope.selectedList.id, $scope.enteredShoppingItem));
 				$scope.enteredShoppingItem = '';
 			}
 			else {
 				$scope.enteredShoppingItem = '';
+				console.log('nothing entered');
 			}
 		};
 

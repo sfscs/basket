@@ -39,11 +39,12 @@ angular.module('services').factory('Items', ['IdService', 'StorageService',
 		};
 
 		function add(item) {
+			console.log(item);
 			items.data.push(item);
 			saveToStorage();
 		}
 
-		function remove(shoppingItemId) {
+		function remove(itemId) {
 			items.data.splice(getItemIdx(itemId), 1);
 			saveToStorage();
 		}
