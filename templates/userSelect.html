@@ -2,18 +2,15 @@
 	<h1>Select User</h1>
 
 	<ul class="list-unstyled">
-		<li class="panel panel-default panel-list-users" ng-click="selectUser(user)" ng-repeat="user in users" >
+		<li class="panel panel-default panel-list-users cursor-pointer" ng-click="selectUser(user)" ng-repeat="user in users" >
 			<div class="panel-body">
 				<div>{{user.name}}</div>
 			</div>
 		</li>
 	</ul>
 
-	<div>currently selected: {{selectedUser.name}}</div>
-<!-- 	<form ng-submit="addShoppingItem()">
-		<input type="text" ng-model="enteredShoppingItem">
+	<form ng-submit="addUser(enteredUserName)">
+		<input type="text" ng-model="enteredUserName">
 		<input type="submit" value="add">
-	</form> -->
-	<br>
-
+	</form>
 </div>

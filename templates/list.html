@@ -1,0 +1,46 @@
+<div class="container container-list-container">
+	<div class="container-fluid">
+		<div class="row basket-header">
+			<div class="col-xs-1">
+				<div class="glyphicon glyphicon-arrow-left basket-header-nav-icon" ng-click="goBackToLists()"></div>
+			</div>
+			<div class="col-xs-10">
+				<h1>{{list.name}}</h1>
+			</div>
+			<div class="col-xs-1">
+				<div class="glyphicon glyphicon-pencil basket-header-nav-icon"></div>
+			</div>
+		</div>
+	</div>
+	<ul class="list-unstyled">
+		<li class="panel panel-default panel-list-item" ng-repeat="item in items | itemInList:list.id" >
+			<div class="panel-body">
+				<div>Owner ID: {{item.owner_id}} List ID: {{item.list_id}}</div>
+				<span>{{item.name}}</span> 
+				<div class="pull-right">
+					<a href="" ng-click="removeShoppingItem(item.id)">remove</a>
+				</div>
+				<div class="pull-right">
+					{{item.added_date | date:'medium'}}
+				</div>
+				<div class="comment-blocks" ng-model="comments">
+					<a class="comments-toggle" href="" ng-click="isCollapsed = !isCollapsed">Comments ({{filteredComments.length}})</a>
+					<div class="comment-area" uib-collapse="!isCollapsed">
+						<div class="comment-block" ng-model="comments" ng-repeat="comment in filteredComments = (comments | commentForItem:item.id)">
+							{{comment.comment}} - {{getCommentOwner(comment).name}}
+						</div>
+						<form ng-submit="addComment(item.id, enteredComment)">
+							<input type="text" ng-model="enteredComment">
+							<input type="submit" value="add">
+						</form>
+					</div>
+				</div>
+			</div>
+		</li>
+	</ul>
+	<form ng-submit="addItem(enteredItemName)">
+		<input type="text" ng-model="enteredItemName">
+		<input type="submit" value="add">
+	</form>
+	<br>
+</div>

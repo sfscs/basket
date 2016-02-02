@@ -31,6 +31,11 @@ function config($stateProvider, $urlRouterProvider) {
 				templateUrl: 'templates/listSelect.html',
 				controller: 'ListSelectCtrl'
 			})
+		.state('list', {
+			url: '/users/{userId:int}/lists/{listId:int}',
+			templateUrl: 'templates/list.html',
+			controller: 'ListCtrl'
+		})
 	;
 }
 

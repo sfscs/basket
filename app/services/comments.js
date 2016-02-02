@@ -42,7 +42,7 @@ function CommentsFactory(IdService, StorageService) {
 
 	function getCommentsByItemId(itemId) {
 		var outputArray = [];
-		angular.forEach(comments.data, function(comment, key) {
+		angular.forEach(comments.data, function(comment) {
 			if (comment.item_id === itemId) {
 				this.push(comment);
 			}
