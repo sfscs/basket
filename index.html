@@ -21,7 +21,7 @@
 		<script src="assets/lib/angular-1.4.9.js"></script>
 		<script src="assets/lib/angular-ui-router-0.2.17.js"></script>
 		<script src="assets/lib/angular-animate-1.4.9.min.js"></script>
-		<script src="assets/lib/ui-bootstrap-custom-tpls-1.1.0.min.js"></script>
+		<script src="assets/lib/ui-bootstrap-tpls-1.1.2.js"></script>
 		<script src="app/modules.js"></script>
 		<script src="app/services/storageService.js"></script>
 		<script src="app/services/idService.js"></script>
@@ -37,40 +37,39 @@
 		<script src="app/directives.js"></script>
 		<script src="app/app.js"></script>
 	</head>
-	<body ng-cloak>
-		<div ng-controller="UserCtrl" class="container">
-			<select class="form-control" ng-model="selectedUser" ng-change="changeUser(selectedUser)" ng-options="user.name for user in users">
-			</select>
-			<div>currently selected: {{selectedUser.name}}</div>
-		</div>
-		<div ng-controller="ListCtrl" class="container container-list-container">
-			<select class="form-control" ng-model="selectedList" ng-change="changeList(selectedList)" ng-options="list.name for list in shoppingLists | userHasAccess:currentUser"></select>
-			<ul class="list-unstyled">
-				<li class="panel panel-default panel-list-item" ng-repeat="item in shoppingItems | itemInList:selectedList.id" >
-					<div class="panel-body">
-						<div>Owner ID: {{item.owner_id}} List ID: {{item.list_id}}</div>
-						<span>{{item.name}}</span> 
-						<div class="pull-right">
-							<a href="" ng-click="removeShoppingItem(item.id)">remove</a>
-						</div>
-						<div class="pull-right">
-							{{item.added_date | date:'medium'}}
-						</div>
-						<div class="comment-blocks" ng-model="comments">
-							<div class="">Comments ({{filteredComments.length}})</div>
-							<div class="comment-block" ng-model="comments" ng-repeat="comment in filteredComments = (comments | commentForItem:item.id)">
-								{{comment.comment}} - 
-							</div>
-						</div>
-					</div>
-				</li>
-			</ul>
-			<form ng-submit="addShoppingItem()">
-				<input type="text" ng-model="enteredShoppingItem">
-				<input type="submit" value="add">
-			</form>
-			<br>
-			<button ng-click="resetBasketApp()">Reset</button>
-		</div>
+	<body ng-cloak ng-controller="AppCtrl">
+		<nav class="navbar navbar-default">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" ng-click="isCollapsed = !isCollapsed">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="#">Basket</a>
+				</div>
+				<div class="collapse navbar-collapse" uib-collapse="!isCollapsed">
+					<ul class="nav navbar-nav navbar-right">
+						<li class="active"><a href="#">Link </a></li>
+						<li><a href="#">Link</a></li>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a href="#">Action</a></li>
+								<li><a href="#">Another action</a></li>
+								<li><a href="#">Something else here</a></li>
+								<li role="separator" class="divider"></li>
+								<li><a href="#">Separated link</a></li>
+								<li role="separator" class="divider"></li>
+								<li><a href="#">One more separated link</a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<section ui-view></section>
+		<br><br>
+		<button ng-click="resetBasketApp()">Reset</button>
 	</body>
 </html>

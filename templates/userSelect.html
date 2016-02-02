@@ -1,0 +1,5 @@
+<div ng-controller="UserCtrl" class="container">
+	<select class="form-control" ng-model="selectedUser" ng-change="changeUser(selectedUser)" ng-options="user.name for user in users">
+	</select>
+	<div>currently selected: {{selectedUser.name}}</div>
+</div>

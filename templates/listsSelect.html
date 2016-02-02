@@ -1,0 +1,3 @@
+<div ng-controller="ListCtrl" class="container container-list-container">
+	<select class="form-control" ng-model="selectedList" ng-change="changeList(selectedList)" ng-options="list.name for list in shoppingLists | userHasAccess:currentUser"></select>
+</div>

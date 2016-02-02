@@ -7,7 +7,23 @@ angular
 		'filters',
 		'controllers',
 	])
+	.config(config)
 	.run(run);
+
+config.$inject = ['$stateProvider', '$urlRouterProvider'];
+
+function config($stateProvider, $urlRouterProvider) {
+	$urlRouterProvider.otherwise("/");
+
+	$stateProvider
+		.state('users', {
+			url: "/",
+			templateUrl: "templates/userSelect.html"
+		})
+	;
+}
+
+
 
 run.$inject = ['$rootScope', 'StorageService', 'IdService', 'Users', 'Lists', 'Items', 'Comments', 'AppData'];
 	
