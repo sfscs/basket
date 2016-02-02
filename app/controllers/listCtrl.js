@@ -14,9 +14,20 @@ function ListCtrl($scope, $state, $stateParams, Lists, Users, Items, AppData, Co
 		return _comments.length;
 	};
 
-	$scope.goBackToLists = function goBackToUsers() {
-		$state.go('user.lists', {userId: $stateParams.userId});
+	$scope.goBack = function goBack() {
+		switch($state.current.name) {
+			case 'list.edit':
+				$state.go('list.items');
+				break;
+			case 'list.items':
+				$state.go('user.lists', {userId: $stateParams.userId});
+				break;
+		}
 	};
+
+	$scope.edit = function edit() {
+		$state.go('list.edit');
+	}
 
 	$scope.addItem = function addItem(itemName) {
 		var _item = Items.createNew($stateParams.userId, $stateParams.listId, itemName);

@@ -18,24 +18,37 @@ function config($stateProvider, $urlRouterProvider) {
 	$stateProvider
 		.state('users', {
 			url: '/users',
-			templateUrl: 'templates/userSelect.html',
+			templateUrl: 'templates/users.html',
 			controller: 'UserSelectCtrl'
 		})
 		.state('user', {
 			abstract: true,
 			url: '/users/{userId:int}',
-			template: '<ui-view/>'
+			templateUrl: 'templates/user.html',
+			controller: 'UserCtrl'
 		})
 			.state('user.lists', {
 				url: '/lists',
-				templateUrl: 'templates/listSelect.html',
-				controller: 'ListSelectCtrl'
+				templateUrl: 'templates/user.lists.html'
+			})
+			.state('user.edit', {
+				url: '/edit',
+				templateUrl: 'templates/user.edit.html'
 			})
 		.state('list', {
+			abstract: true,
 			url: '/users/{userId:int}/lists/{listId:int}',
-			templateUrl: 'templates/list.html',
-			controller: 'ListCtrl'
+			controller: 'ListCtrl',
+			templateUrl: 'templates/list.html'
 		})
+			.state('list.items', {
+				url: '/items',
+				templateUrl: 'templates/list.items.html'
+			})
+			.state('list.edit', {
+				url: '/edit',
+				templateUrl: 'templates/list.edit.html'
+			})
 	;
 }
 
