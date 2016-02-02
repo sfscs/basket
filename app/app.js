@@ -13,13 +13,24 @@ angular
 config.$inject = ['$stateProvider', '$urlRouterProvider'];
 
 function config($stateProvider, $urlRouterProvider) {
-	$urlRouterProvider.otherwise("/");
+	$urlRouterProvider.otherwise("/users");
 
 	$stateProvider
 		.state('users', {
-			url: "/",
-			templateUrl: "templates/userSelect.html"
+			url: '/users',
+			templateUrl: 'templates/userSelect.html',
+			controller: 'UserSelectCtrl'
 		})
+		.state('user', {
+			abstract: true,
+			url: '/users/{userId:int}',
+			template: '<ui-view/>'
+		})
+			.state('user.lists', {
+				url: '/lists',
+				templateUrl: 'templates/listSelect.html',
+				controller: 'ListSelectCtrl'
+			})
 	;
 }
 
@@ -28,6 +39,7 @@ function config($stateProvider, $urlRouterProvider) {
 run.$inject = ['$rootScope', 'StorageService', 'IdService', 'Users', 'Lists', 'Items', 'Comments', 'AppData'];
 	
 function run($rootScope, StorageService, IdService, Users, Lists, Items, Comments, AppData) {
+	$rootScope.$on("$stateChangeError", console.log.bind(console));
 	if (StorageService.get('auto_increment') === null) {
 		StorageService.clearAll();
 		StorageService.set('auto_increment', 0);

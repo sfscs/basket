@@ -10,7 +10,21 @@
 			body {
 				background-image: url(assets/img/background.png);
 			}
+			h1 {
+				color: #73B183;
+				text-align: center;
+			}
 			.panel-list-item {
+				min-height: 80px;
+				margin-bottom: 2px;
+			}
+			.panel-list-users {
+				cursor: pointer;
+				min-height: 80px;
+				margin-bottom: 2px;
+			}
+			.panel-list-lists {
+				cursor: pointer;
 				min-height: 80px;
 				margin-bottom: 2px;
 			}
@@ -30,7 +44,9 @@
 		<script src="app/services/items.js"></script>
 		<script src="app/services/comments.js"></script>
 		<script src="app/services/appData.js"></script>
+		<script src="app/controllers/userSelectCtrl.js"></script>
 		<script src="app/controllers/userCtrl.js"></script>
+		<script src="app/controllers/listSelectCtrl.js"></script>
 		<script src="app/controllers/listCtrl.js"></script>
 		<script src="app/controllers/appCtrl.js"></script>
 		<script src="app/filters.js"></script>
@@ -52,9 +68,9 @@
 					<ul class="nav navbar-nav navbar-right">
 						<li class="active"><a href="#">Link </a></li>
 						<li><a href="#">Link</a></li>
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
-							<ul class="dropdown-menu">
+						<li class="dropdown" uib-dropdown>
+							<a href="#" class="dropdown-toggle" uib-dropdown-toggle ng-disabled="disabled">Dropdown <span class="caret"></span></a>
+							<ul class="dropdown-menu" uib-dropdown-menu>
 								<li><a href="#">Action</a></li>
 								<li><a href="#">Another action</a></li>
 								<li><a href="#">Something else here</a></li>

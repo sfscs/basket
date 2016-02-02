@@ -14,6 +14,7 @@ function ItemsFactory(IdService, StorageService) {
 	items.createNew = createNew;
 	items.getItemById = getItemById;
 	items.getItemIdx = getItemIdx;
+	items.getItemsByListId = getItemsByListId;
 
 	function init() {
 		items.data = StorageService.get('items');
@@ -29,6 +30,16 @@ function ItemsFactory(IdService, StorageService) {
 		})[0];
 		var idx = items.data.indexOf(i);
 		return idx;
+	}
+
+	function getItemsByListId(listId) {
+		var output = [];
+		angular.forEach(items.data, function(entry) {
+			if (entry.list_id === listId) {
+				this.push(entry);
+			}
+		}, output);
+		return output;
 	}
 
 	function createNew(ownerId, listId, itemName) {

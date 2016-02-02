@@ -1,5 +1,19 @@
-<div ng-controller="UserCtrl" class="container">
-	<select class="form-control" ng-model="selectedUser" ng-change="changeUser(selectedUser)" ng-options="user.name for user in users">
-	</select>
+<div ng-controller="UserCtrl" class="container container-list-container">
+	<h1>Select User</h1>
+
+	<ul class="list-unstyled">
+		<li class="panel panel-default panel-list-users" ng-click="selectUser(user)" ng-repeat="user in users" >
+			<div class="panel-body">
+				<div>{{user.name}}</div>
+			</div>
+		</li>
+	</ul>
+
 	<div>currently selected: {{selectedUser.name}}</div>
+<!-- 	<form ng-submit="addShoppingItem()">
+		<input type="text" ng-model="enteredShoppingItem">
+		<input type="submit" value="add">
+	</form> -->
+	<br>
+
 </div>
