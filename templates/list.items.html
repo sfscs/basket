@@ -60,7 +60,9 @@
 				</div>
 			</div>
 			<div class="item-extras">
-				<span class="glyphicon glyphicon-trash"></span>
+				<div class="item-delete" ng-click="deleteItem()">
+					<span class="glyphicon glyphicon-trash"></span>
+				</div>
 			</div>
 		</div>
 	</li>
@@ -68,11 +70,11 @@
 
 <div class="container-fluid">
 	<div class="col-xs-12">
-		<form ng-submit="addItem(enteredItemName)">
+		<form ng-submit="addItem(enteredItemName); enteredItemName = ''">
 			<div class="input-group">
 				<input type="text" class="form-control" ng-model="enteredItemName" placeholder="Add Item...">
 				<span class="input-group-btn">
-				<button class="btn btn-default" type="button">Add!</button>
+					<button class="btn btn-default" type="submit">Add!</button>
 				</span>
 			</div>
 		</form>

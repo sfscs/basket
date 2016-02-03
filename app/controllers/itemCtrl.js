@@ -4,8 +4,8 @@ angular
 	
 ItemCtrl.$inject = ['$scope', '$attrs', '$state', '$stateParams', 'Lists', 'Users', 'Items', 'Comments'];
 
-/* this controller must be nested inside a ListCtrl */
 function ItemCtrl($scope, $attrs, $state, $stateParams, Lists, Users, Items, Comments) {
+	/* this controller must be nested inside a ListCtrl */
 	$scope.isEditing = false;
 	$scope.newItemName = $scope.item.name;
 	$scope.startItemEdit = function startEdit() {
@@ -24,5 +24,8 @@ function ItemCtrl($scope, $attrs, $state, $stateParams, Lists, Users, Items, Com
 	$scope.cancelItemEdit = function cancelItemEdit() {
 		$scope.newItemName = $scope.item.name;
 		$scope.isEditing = false;
+	}
+	$scope.deleteItem = function deleteItem() {
+		Items.remove($scope.item.id);
 	}
 }

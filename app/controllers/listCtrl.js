@@ -31,8 +31,8 @@ function ListCtrl($scope, $state, $stateParams, Lists, Users, Items, Comments) {
 		$state.go('list.edit');
 	}
 
-	$scope.addItem = function addItem(itemName) {
-		var _item = Items.createNew($stateParams.userId, $stateParams.listId, itemName);
+	$scope.addItem = function addItem(enteredItemName) {
+		var _item = Items.createNew($stateParams.userId, $stateParams.listId, enteredItemName.trim());
 		Items.add(_item);
 	}
 

@@ -138,15 +138,16 @@ input.item-checkbox:checked + .checkbox-toggle {
 	display: none;
 }
 .item-name-edit-input {
-	
+
 }
 .editing .item-name-label {
 	display: none;
 }
 .editing .item-name-edit {
     display: block;
-    height: 40px;
+    height: 36px;
     margin-right: 20px;
+    margin-top: 5px;
 }
 .cancel-edit {
 	cursor: pointer;
@@ -156,6 +157,9 @@ input.item-checkbox:checked + .checkbox-toggle {
     width: 20px;
     z-index: 5;
     right: 65px;
+}
+.item-delete {
+	cursor: pointer;
 }
 
 /*** downward responsive adjustments ***/
