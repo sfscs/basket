@@ -13,7 +13,7 @@
 </div>
 <div class="container-fluid">
 	<ul class="list-unstyled">
-		<li class="panel panel-default panel-list-lists cursor-pointer" ng-click="selectList(list)" ng-repeat="list in lists | userHasAccess:user.id track by $index" >
+		<li class="panel panel-default panel-list-lists cursor-pointer" ng-click="selectList(list)" ng-repeat="list in lists | userHasAccess:user.id track by list.id" >
 			<div class="panel-body">
 				<div>{{list.name}}</div>
 				<div>Items: {{countItems(list.id)}}</div>

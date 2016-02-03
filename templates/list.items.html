@@ -1,4 +1,3 @@
-
 <div class="basket-header">
 	<div class="header-back-icons">
 		<div class="glyphicon glyphicon-arrow-left basket-header-nav-icon" ng-click="goBack()"></div>
@@ -11,14 +10,14 @@
 	</div>
 </div>
 <ul class="list-unstyled">
-	<li class="panel panel-default" ng-repeat="item in items | itemInList:list.id track by $index" >
+	<li class="panel panel-default" ng-repeat="item in items | itemInList:list.id track by item.id" >
 		<div class="panel-body" ng-controller="ItemCtrl" ng-class="{editing: isEditing}">
 			<div class="item-checkbox">
 				<input class="item-checkbox" type="checkbox" id="item-checkbox-{{item.id}}">
 				<label class="checkbox-toggle" for="item-checkbox-{{item.id}}"></label>
 			</div>
 			<div class="item-main">
-				<div class="item-name-label" ng-click="startItemEdit()"><span class="item-name">{{item.name}} {{item.id}}</span></div>
+				<div class="item-name-label" ng-click="startItemEdit()"><span class="item-name">{{item.name}}</span></div>
 				<form class="item-name-edit">
 					<div class="input-group">
 						<div class="cancel-edit" ng-click="cancelItemEdit()">
@@ -44,18 +43,26 @@
 				</a>
 				<div class="comment-blocks" ng-model="comments">
 					<div class="comment-area" uib-collapse="!commentsIsCollapsed">
-						<div class="comment-block" ng-model="comments" ng-repeat="comment in filteredComments = (comments | commentForItem:item.id) track by $index">
+						<div class="comment-block" ng-model="comments" ng-repeat="comment in filteredComments = (comments | commentForItem:item.id) track by comment.id">
 							{{comment.comment}} - {{getCommentOwner(comment).name}}
 						</div>
 						<form ng-submit="addComment(item.id, enteredComment)">
-							<input type="text" ng-model="enteredComment">
-							<input type="submit" value="add">
+							<div class="input-group">
+							<input type="text" class="form-control" ng-model="enteredComment" placeholder="Add a comment...">
+							<span class="input-group-btn">
+								<button class="btn btn-default" type="submit">Submit</button>
+							</span>
+							</div>
 						</form>
 					</div>
 				</div>
 				<div class="assignment-blocks">
 					<div class="assignment-area" uib-collapse="!assignmentIsCollapsed">
-						<a class="assignment-block" href="" ng-repeat="user in assignableUsers track by $index">{{user.name}}</a>
+						Assign to: 
+						<span ng-repeat="user in assignableUsers track by user.id">
+							<span ng-show="!$first"> | </span>
+							<a class="assignment-block" href="" ng-click="assignItem(user.id); $parent.assignmentIsCollapsed = false">{{user.name}}</a>
+						</span>
 					</div>
 				</div>
 			</div>
@@ -72,7 +79,7 @@
 	<div class="col-xs-12">
 		<form ng-submit="addItem(enteredItemName); enteredItemName = ''">
 			<div class="input-group">
-				<input type="text" class="form-control" ng-model="enteredItemName" placeholder="Add Item...">
+				<input type="text" class="form-control" ng-model="enteredItemName" placeholder="Add item...">
 				<span class="input-group-btn">
 					<button class="btn btn-default" type="submit">Add!</button>
 				</span>

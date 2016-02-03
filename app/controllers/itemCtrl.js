@@ -10,7 +10,7 @@ function ItemCtrl($scope, $attrs, $state, $stateParams, Lists, Users, Items, Com
 	$scope.newItemName = $scope.item.name;
 	$scope.startItemEdit = function startEdit() {
 		$scope.isEditing = true;
-	}
+	};
 	$scope.saveItemEdit = function saveItemEdit(newItemName) {
 		if(newItemName.trim()) {
 			Items.editItem($scope.item.id, 'name', newItemName.trim());
@@ -20,12 +20,15 @@ function ItemCtrl($scope, $attrs, $state, $stateParams, Lists, Users, Items, Com
 		else {
 			$scope.cancelItemEdit();
 		}
-	}
+	};
 	$scope.cancelItemEdit = function cancelItemEdit() {
 		$scope.newItemName = $scope.item.name;
 		$scope.isEditing = false;
-	}
+	};
 	$scope.deleteItem = function deleteItem() {
 		Items.remove($scope.item.id);
+	};
+	$scope.assignItem = function(userId) {
+		Items.editItem($scope.item.id, 'assigned_to_id', userId);
 	}
 }

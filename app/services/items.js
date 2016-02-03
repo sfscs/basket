@@ -58,7 +58,7 @@ function ItemsFactory(IdService, StorageService) {
 			"list_id": listId,
 			"assigned_to_id": ownerId,
 			"added_date": Date.now()
-		}
+		};
 	};
 
 	function add(item) {
