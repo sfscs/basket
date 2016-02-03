@@ -90,10 +90,10 @@ function run($rootScope, StorageService, IdService, Users, Lists, Items, Comment
 
 		StorageService.set('items', newItems);
 		StorageService.set('comments', [
-			Comments.createNew(newUser1, newItems[0].id, "From cheese store"),
-			Comments.createNew(newUser1, newItems[4].id, "Tasty apples only, please"),
-			Comments.createNew(newUser2, newItems[4].id, "I like tasty apples"),
-			Comments.createNew(newUser2, newItems[5].id, "For the dog")
+			Comments.createNew(newUser1.id, newItems[0].id, "From cheese store"),
+			Comments.createNew(newUser1.id, newItems[4].id, "Tasty apples only, please"),
+			Comments.createNew(newUser2.id, newItems[4].id, "I like tasty apples"),
+			Comments.createNew(newUser2.id, newItems[5].id, "For the dog")
 		]);
 	}
 	IdService.init();

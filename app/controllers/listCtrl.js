@@ -7,7 +7,9 @@ ListCtrl.$inject = ['$scope', '$state', '$stateParams', 'Lists', 'Users', 'Items
 function ListCtrl($scope, $state, $stateParams, Lists, Users, Items, Comments) {
 	$scope.items = Items.data;
 	$scope.comments = Comments.data;
+	$scope.assignableUsers = Users.data;
 	$scope.list = Lists.getListById($stateParams.listId);
+	$scope.listNameChange = $scope.list.name;
 
 	$scope.countComments = function countComments(itemId) {
 		var _comments = Comments.getCommentsByItemId(itemId);
@@ -40,7 +42,17 @@ function ListCtrl($scope, $state, $stateParams, Lists, Users, Items, Comments) {
 	}
 
 	$scope.getCommentOwner = function getCommentOwner(comment) {
+		console.log(comment);
 		var _user = Users.getUserById(comment.owner_id);
 		return _user;
+	}
+
+	$scope.getUser = function getUser(userId) {
+		var _user = Users.getUserById(userId);
+		return _user;
+	}
+
+	$scope.beginEditName = function beginEditName() {
+
 	}
 }
