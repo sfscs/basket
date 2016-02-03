@@ -20,8 +20,12 @@ h1 {
 input[type=checkbox]:focus {
 	outline: none;
 }
-a.toggle-link {
+a.toggle-link.green {
 	color: #66987F;
+}
+a.toggle-link.black {
+	font-size: 1.7em;
+	color: #000000;
 }
 a.toggle-link:active,
 a.toggle-link:focus,
@@ -44,6 +48,9 @@ a.toggle-link:visited {
 .container-full {
 	margin: 0;
 	padding: 0;
+}
+.v-margin-50 {
+	margin-top: 50px;
 }
 
 /* header styles */
@@ -126,40 +133,65 @@ input.item-checkbox:checked + .checkbox-toggle {
 .item-extras {
 	font-size: 1.7em;
 	width: 40px;
-    position: absolute;
-    top: 25px;
-    right: 20px;
-    cursor: pointer;
+	position: absolute;
+	top: 25px;
+	right: 20px;
+	cursor: pointer;
 }
+
 .item-name-label {
 	cursor: pointer;
 }
 .item-name-edit {
 	display: none;
 }
-.item-name-edit-input {
 
-}
 .editing .item-name-label {
 	display: none;
 }
 .editing .item-name-edit {
-    display: block;
-    height: 36px;
-    margin-right: 20px;
-    margin-top: 5px;
+	display: block;
+	height: 36px;
+	margin-right: 20px;
+	margin-top: 5px;
 }
+
 .cancel-edit {
 	cursor: pointer;
-    position: absolute;
-    top: 9px;
-    height: 20px;
-    width: 20px;
-    z-index: 5;
-    right: 65px;
+	position: absolute;
+	top: 9px;
+	height: 20px;
+	width: 20px;
+	z-index: 5;
+	right: 65px;
 }
 .item-delete {
 	cursor: pointer;
+}
+
+/* list edit and delete */
+.list-name-label {
+	height: 36px;
+	font-size: 1.7em;
+	cursor: pointer;
+}
+.list-name-edit {
+	display: none;
+}
+
+.editing .list-name-label {
+	display: none;
+}
+.editing .list-name-edit {
+	display: block;
+	height: 36px;
+	margin-right: 20px;
+	margin-top: 5px;
+}
+
+.pencil-icon {
+	margin-left: 10px;
+	opacity: 0.6;
 }
 
 /*** downward responsive adjustments ***/

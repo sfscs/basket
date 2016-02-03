@@ -1,14 +1,12 @@
-<div class="container-fluid">
-	<div class="row basket-header">
-		<div class="col-xs-1">
-			<div class="glyphicon glyphicon-arrow-left basket-header-nav-icon" ng-click="goBack()"></div>
-		</div>
-		<div class="col-xs-10">
-			<h1>{{user.name}}</h1>
-		</div>
-		<div class="col-xs-1">
-			<div class="glyphicon glyphicon-pencil basket-header-nav-icon" ng-click="edit()"></div>
-		</div>
+<div class="basket-header">
+	<div class="header-back-icons">
+		<div class="glyphicon glyphicon-arrow-left basket-header-nav-icon" ng-click="goBack()"></div>
+	</div>
+	<div class="header-title">
+		<h1><span>{{user.name}} Lists</span></h1>
+	</div>
+	<div class="header-extras-icons">
+		<div class="glyphicon glyphicon-cog basket-header-nav-icon" ng-click="userEdit()"></div>
 	</div>
 </div>
 <div class="container-fluid">

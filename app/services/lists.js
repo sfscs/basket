@@ -14,6 +14,9 @@ function ListsFactory(IdService, StorageService) {
 	lists.createNew = createNew;
 	lists.getListById = getListById;
 	lists.getListIdx = getListIdx;
+	lists.editList = editList;
+	lists.shareList = shareList;
+	lists.unShareList = unShareList;
 
 	function init() {
 		lists.data = StorageService.get('lists');
@@ -24,13 +27,31 @@ function ListsFactory(IdService, StorageService) {
 		var listIdx = getListIdx(listId);
 
 		// get the list
-		var list = getListById(listId);
+		var _list = getListById(listId);
 
 		// push the user into the shared array
-		list.shared_with.push(userId);
+		_list.shared_with.push(userId);
 
 		// save the list
-		lists.data[listIdx] = lists;
+		lists.data[listIdx] = _list;
+		saveToStorage();
+	}
+
+	function unShareList(userId, listId) {
+		// get the list idx
+		var listIdx = getListIdx(listId);
+
+		// get the list
+		var _list = getListById(listId);
+
+		// get the Idx of the userId in the shared_with array
+		var _sharedWithIdx = _list.shared_with.indexOf(userId);
+
+		// remove the user from the shared_with array
+		_list.shared_with.splice(_sharedWithIdx, 1);
+
+		// save the list
+		lists.data[listIdx] = _list;
 		saveToStorage();
 	}
 
@@ -44,6 +65,12 @@ function ListsFactory(IdService, StorageService) {
 		})[0];
 		var idx = lists.data.indexOf(i);
 		return idx;
+	}
+
+	function editList(listId, key, value) {
+		var idx = lists.getListIdx(listId);
+		lists.data[idx][key] = value;
+		saveToStorage();
 	}
 
 	function createNew(ownerId, listName) {

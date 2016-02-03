@@ -3,10 +3,11 @@
 		<div class="glyphicon glyphicon-arrow-left basket-header-nav-icon" ng-click="goBack()"></div>
 	</div>
 	<div class="header-title">
-		<h1><span contentEditable="true">{{list.name}}</span></h1>
+		<h1><span>{{list.name}}</span></h1>
 	</div>
 	<div class="header-extras-icons">
-		<div class="glyphicon glyphicon-cog basket-header-nav-icon" ng-click="edit()"></div>
+		<div ng-show="list.owner_id === currentUser.id" class="glyphicon glyphicon-cog basket-header-nav-icon" ng-click="listEdit()"></div>
+		<div ng-show="list.owner_id !== currentUser.id" class="glyphicon glyphicon-lock basket-header-nav-icon"></div>
 	</div>
 </div>
 <ul class="list-unstyled">
@@ -30,13 +31,13 @@
 					</div>
 				</form>
 				<div class="item-sub">added {{item.added_date | date:'medium'}} by {{getUser(item.owner_id).name}} </div>
-				<a class="comments-toggle toggle-link" href="" ng-click="commentsIsCollapsed = !commentsIsCollapsed; assignmentIsCollapsed = false">
+				<a class="comments-toggle toggle-link green" href="" ng-click="commentsIsCollapsed = !commentsIsCollapsed; assignmentIsCollapsed = false">
 					<span class="glyphicon glyphicon-comment"></span>
 					<span class="toggle-label">Comments</span>
 					({{filteredComments.length}})
 				</a>
 				&nbsp;&nbsp;&nbsp;
-				<a class="assignment-toggle toggle-link" href="" ng-click="assignmentIsCollapsed = !assignmentIsCollapsed; commentsIsCollapsed = false">
+				<a class="assignment-toggle toggle-link green" href="" ng-click="assignmentIsCollapsed = !assignmentIsCollapsed; commentsIsCollapsed = false">
 					<span class="glyphicon glyphicon-user"></span>
 					<span class="toggle-label">Assigned to</span>
 					{{getUser(item.assigned_to_id).name}}

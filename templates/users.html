@@ -1,16 +1,21 @@
 <div ng-controller="UserCtrl" class="container container-list-container">
-	<h1>Select User</h1>
+	<div class="basket-header">
+		<div class="header-title">
+			<h1><span>Users</span></h1>
+		</div>
+	</div>
+	<div class="container-fluid">
+		<ul class="list-unstyled">
+			<li class="panel panel-default" ng-click="selectUser(user)" ng-repeat="user in users track by user.id">
+				<div class="panel-body">
+					<div>{{user.name}}</div>
+				</div>
+			</li>
+		</ul>
 
-	<ul class="list-unstyled">
-		<li class="panel panel-default panel-list-users cursor-pointer" ng-click="selectUser(user)" ng-repeat="user in users track by user.id">
-			<div class="panel-body">
-				<div>{{user.name}}</div>
-			</div>
-		</li>
-	</ul>
-
-	<form ng-submit="addUser(enteredUserName)">
-		<input type="text" ng-model="enteredUserName">
-		<input type="submit" value="add">
-	</form>
+		<form ng-submit="addUser(enteredUserName)">
+			<input type="text" ng-model="enteredUserName">
+			<input type="submit" value="add">
+		</form>
+	</div>
 </div>

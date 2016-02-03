@@ -32,8 +32,8 @@ angular.module('filters')
 			var output = [];
 			// iterate over users
 			angular.forEach(input, function(user) {
+				// check if the user is the owner
 				if(list.owner_id === user.id) {
-					// check if the user is the owner
 					this.push(user);
 				}
 				else {
@@ -44,6 +44,22 @@ angular.module('filters')
 							that.push(user);
 						}
 					});
+				}
+			}, output);
+			return output;
+		};
+	})
+	.filter('excludeUser', function() {
+		/**
+		 * remove a specific user from an array of users
+		 */
+		return function (input, excludedUser) {
+			var output = [];
+			// iterate over users
+			angular.forEach(input, function(user) {
+				// if its not the user, push it through
+				if(user.id !== excludedUser.id) {
+					this.push(user);
 				}
 			}, output);
 			return output;
