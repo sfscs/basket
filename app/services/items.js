@@ -53,7 +53,7 @@ function ItemsFactory(IdService, StorageService) {
 		return {
 			"id": IdService.newId(),
 			"name": itemName.trim(),
-			"checked": false,
+			"is_checked": false,
 			"owner_id": ownerId,
 			"list_id": listId,
 			"assigned_to_id": ownerId,

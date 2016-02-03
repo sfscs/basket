@@ -3,7 +3,7 @@
 		<div class="glyphicon glyphicon-arrow-left basket-header-nav-icon" ng-click="goBack()"></div>
 	</div>
 	<div class="header-title">
-		<h1><span>{{user.name}} Lists</span></h1>
+		<h1><span>{{user.name}}</span></h1>
 	</div>
 	<div class="header-extras-icons">
 		<div class="glyphicon glyphicon-cog basket-header-nav-icon" ng-click="userEdit()"></div>
@@ -18,8 +18,17 @@
 			</div>
 		</li>
 	</ul>
-	<form ng-submit="addList(enteredListName)">
-		<input type="text" ng-model="enteredListName">
-		<input type="submit" value="add">
-	</form>
+</div>
+
+<div class="container-fluid">
+	<div class="col-xs-12">
+		<form ng-submit="addList(enteredListName); enteredListName = ''">
+			<div class="input-group">
+				<input type="text" class="form-control" ng-model="enteredListName" placeholder="Add list...">
+				<span class="input-group-btn">
+					<button class="btn btn-default" type="submit">Add!</button>
+				</span>
+			</div>
+		</form>
+	</div>
 </div>

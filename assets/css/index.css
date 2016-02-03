@@ -8,15 +8,6 @@ h1 {
 	text-align: center;
 	margin: 0;
 }
-.panel
-{
-	min-height: 80px;
-	margin-bottom: 2px;
-}
-.panel-body {
-	position: relative;
-	padding: 0;
-}
 input[type=checkbox]:focus {
 	outline: none;
 }
@@ -39,6 +30,10 @@ a.toggle-link:visited {
 	-moz-transform: scaleX(-1);
 	-webkit-transform: scaleX(-1);
 	-ms-transform: scaleX(-1);
+}
+.panel-body {
+	position: relative;
+	padding: 0;
 }
 
 /* layout styles */
@@ -83,35 +78,30 @@ a.toggle-link:visited {
 .cursor-pointer {
 	cursor: pointer;
 }
+.cursor-not-allowed {
+	cursor: not-allowed;
+}
 .input-editable:not(:focus) {
 	opacity: 0.7;
 }
 
-/* checkbox styles */
-input.item-checkbox {
-	display: none;
+/* user select */
+.basket-users {
+	width: 320px;
 }
-.checkbox-toggle {
-	cursor: pointer;
-	width: 40px;
-	height: 40px;
-	background-image: url(../img/checkbox-sprite.png);
-	background-size: 40px 80px;
-	background-position: 0 0;
-	background-repeat: no-repeat;
+.basket-users .panel {
+	height: 60px;
 }
-input.item-checkbox:checked + .checkbox-toggle {
-	background-position: 0 -40px;
+.basket-user-name {
+	margin-top: 10px;
+	font-size: 1.7em;
 }
 
 /* shopping list items */
-.item-checkbox {
-	cursor: pointer;
-	width: 40px;
-	height: 40px;
-	position: absolute;
-	top: 15px;
-	left: 10px;
+.panel.panel-items
+{
+	min-height: 80px;
+	margin-bottom: 2px;
 }
 .item-main {
 	padding: 0 60px;
@@ -129,6 +119,30 @@ input.item-checkbox:checked + .checkbox-toggle {
 	display: inline-block;
 }
 
+/* checkbox styles */
+input.item-checkbox-hidden {
+	display: none;
+}
+.item-checkbox {
+	cursor: pointer;
+	width: 40px;
+	height: 40px;
+	position: absolute;
+	top: 15px;
+	left: 10px;
+}
+.checkbox-toggle {
+	width: 40px;
+	height: 40px;
+	background-image: url(../img/checkbox-sprite.png);
+	background-size: 40px 80px;
+	background-position: 0 0;
+	background-repeat: no-repeat;
+}
+input.item-checkbox-hidden:checked + .checkbox-toggle {
+	background-position: 0 -40px;
+}
+
 /* item edit and delete */
 .item-extras {
 	font-size: 1.7em;
@@ -136,16 +150,10 @@ input.item-checkbox:checked + .checkbox-toggle {
 	position: absolute;
 	top: 25px;
 	right: 20px;
-	cursor: pointer;
-}
-
-.item-name-label {
-	cursor: pointer;
 }
 .item-name-edit {
 	display: none;
 }
-
 .editing .item-name-label {
 	display: none;
 }
@@ -155,18 +163,13 @@ input.item-checkbox:checked + .checkbox-toggle {
 	margin-right: 20px;
 	margin-top: 5px;
 }
-
 .cancel-edit {
-	cursor: pointer;
 	position: absolute;
 	top: 9px;
 	height: 20px;
 	width: 20px;
 	z-index: 5;
 	right: 65px;
-}
-.item-delete {
-	cursor: pointer;
 }
 
 /* list edit and delete */
@@ -215,6 +218,9 @@ input.item-checkbox:checked + .checkbox-toggle {
 	}
 	.toggle-label {
 		display: none;
+	}
+	.basket-users {
+		width: 100%;
 	}
 }
 

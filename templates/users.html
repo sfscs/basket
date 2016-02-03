@@ -4,11 +4,11 @@
 			<h1><span>Users</span></h1>
 		</div>
 	</div>
-	<div class="container-fluid">
+	<div class="container-fluid container-list-container basket-users">
 		<ul class="list-unstyled">
-			<li class="panel panel-default" ng-click="selectUser(user)" ng-repeat="user in users track by user.id">
-				<div class="panel-body">
-					<div>{{user.name}}</div>
+			<li class="panel panel-default cursor-pointer" ng-click="selectUser(user)" ng-repeat="user in users track by user.id">
+				<div class="panel-body text-center">
+					<div class="basket-user-name">{{user.name}}</div>
 				</div>
 			</li>
 		</ul>

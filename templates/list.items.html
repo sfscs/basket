@@ -7,21 +7,21 @@
 	</div>
 	<div class="header-extras-icons">
 		<div ng-show="list.owner_id === currentUser.id" class="glyphicon glyphicon-cog basket-header-nav-icon" ng-click="listEdit()"></div>
-		<div ng-show="list.owner_id !== currentUser.id" class="glyphicon glyphicon-lock basket-header-nav-icon"></div>
+		<div ng-show="list.owner_id !== currentUser.id" class="glyphicon glyphicon-lock basket-header-nav-icon cursor-not-allowed"></div>
 	</div>
 </div>
 <ul class="list-unstyled">
-	<li class="panel panel-default" ng-repeat="item in items | itemInList:list.id track by item.id" >
+	<li class="panel panel-default panel-items" ng-repeat="item in items | itemInList:list.id track by item.id" >
 		<div class="panel-body" ng-controller="ItemCtrl" ng-class="{editing: isEditing}">
 			<div class="item-checkbox">
-				<input class="item-checkbox" type="checkbox" id="item-checkbox-{{item.id}}">
-				<label class="checkbox-toggle" for="item-checkbox-{{item.id}}"></label>
+				<input class="item-checkbox-hidden" type="checkbox" id="item-checkbox-{{item.id}}" ng-model="itemCheck" ng-change="setCheckBox(itemCheck)">
+				<label class="checkbox-toggle cursor-pointer" for="item-checkbox-{{item.id}}"></label>
 			</div>
 			<div class="item-main">
-				<div class="item-name-label" ng-click="startItemEdit()"><span class="item-name">{{item.name}}</span></div>
+				<div class="item-name-label cursor-pointer" ng-click="startItemEdit()"><span class="item-name">{{item.name}}</span></div>
 				<form class="item-name-edit">
 					<div class="input-group">
-						<div class="cancel-edit" ng-click="cancelItemEdit()">
+						<div class="cancel-edit cursor-pointer" ng-click="cancelItemEdit()">
 							<span class="glyphicon glyphicon-repeat"></span>
 						</div>
 						<input type="text" class="form-control" ng-model="newItemName">
@@ -60,7 +60,7 @@
 				<div class="assignment-blocks">
 					<div class="assignment-area" uib-collapse="!assignmentIsCollapsed">
 						Assign to: 
-						<span ng-repeat="user in assignableUsers track by user.id">
+						<span ng-repeat="user in users | assignableUsers:list track by user.id">
 							<span ng-show="!$first"> | </span>
 							<a class="assignment-block" href="" ng-click="assignItem(user.id); $parent.assignmentIsCollapsed = false">{{user.name}}</a>
 						</span>
@@ -68,7 +68,7 @@
 				</div>
 			</div>
 			<div class="item-extras">
-				<div class="item-delete" ng-click="deleteItem()">
+				<div class="cursor-pointer" ng-click="deleteItem()">
 					<span class="glyphicon glyphicon-trash"></span>
 				</div>
 			</div>
