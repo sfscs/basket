@@ -9,19 +9,16 @@
 		<div class="glyphicon glyphicon-cog basket-header-nav-icon" ng-click="userEdit()"></div>
 	</div>
 </div>
-<div class="container-fluid">
+<div class="container-fluid container-list-container basket-lists">
 	<ul class="list-unstyled">
-		<li class="panel panel-default panel-list-lists cursor-pointer" ng-click="selectList(list)" ng-repeat="list in lists | userHasAccess:user.id track by list.id" >
-			<div class="panel-body">
-				<div>{{list.name}}</div>
-				<div>Items: {{countItems(list.id)}}</div>
+		<li class="panel panel-default cursor-pointer" ng-click="selectList(list)" ng-repeat="list in lists | userHasAccess:user.id track by list.id">
+			<div class="panel-body text-center">
+				<div class="basket-list-name">{{list.name}}</div>
+				<div>Items: {{countItems(list.id)}} | Owner: {{getUser(list.owner_id).name}}</div>
 			</div>
 		</li>
 	</ul>
-</div>
-
-<div class="container-fluid">
-	<div class="col-xs-12">
+	<div class="container-fluid">
 		<form ng-submit="addList(enteredListName); enteredListName = ''">
 			<div class="input-group">
 				<input type="text" class="form-control" ng-model="enteredListName" placeholder="Add list...">

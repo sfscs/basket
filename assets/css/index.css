@@ -97,6 +97,17 @@ a.toggle-link:visited {
 	font-size: 1.7em;
 }
 
+/* list select */
+.basket-lists {
+	width: 320px;
+}
+.basket-lists .panel {
+	height: 60px;
+}
+.basket-list-name {
+	font-size: 1.7em;
+}
+
 /* shopping list items */
 .panel.panel-items
 {
@@ -219,7 +230,8 @@ input.item-checkbox-hidden:checked + .checkbox-toggle {
 	.toggle-label {
 		display: none;
 	}
-	.basket-users {
+	.basket-users,
+	.basket-lists {
 		width: 100%;
 	}
 }

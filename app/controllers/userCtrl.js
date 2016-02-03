@@ -16,6 +16,8 @@ function UserCtrl($scope, $state, $stateParams, Lists, Users, Items, Comments) {
 		return _items.length;
 	};
 
+	$scope.getUser = Users.getUserById;
+
 	$scope.goBack = function goBack() {
 		switch($state.current.name) {
 			case 'user.lists':
@@ -27,7 +29,7 @@ function UserCtrl($scope, $state, $stateParams, Lists, Users, Items, Comments) {
 		}
 	};
 
-	$scope.edit = function edit() {
+	$scope.editUser = function editUser() {
 		$state.go('user.edit');
 	}
 
