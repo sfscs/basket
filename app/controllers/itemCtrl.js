@@ -2,24 +2,35 @@ angular
 	.module('controllers')
 	.controller('ItemCtrl', ItemCtrl);
 	
-ItemCtrl.$inject = ['$scope', '$attrs', '$state', '$stateParams', 'Lists', 'Users', 'Items', 'Comments'];
+ItemCtrl.$inject = ['$scope', 'Items'];
 
-function ItemCtrl($scope, $attrs, $state, $stateParams, Lists, Users, Items, Comments) {
-	/* this controller must be nested inside a ListCtrl */
-	$scope.isEditing = false;
+/* this controller must be nested inside a ListCtrl */
+function ItemCtrl($scope, Items) {
+	// assign a item to a user
+	$scope.assignItem = assignItem;
+
+	/* check boxes*/
 	$scope.itemCheck = $scope.item.is_checked;
+	$scope.setCheckBox = setCheckBox;
+
+	/* item name editing */
 	$scope.newItemName = $scope.item.name;
+	$scope.isEditing = false;
+	$scope.startItemEdit = startItemEdit;
+	$scope.cancelItemEdit = cancelItemEdit; 
+	$scope.saveItemEdit = saveItemEdit;
+	$scope.deleteItem = deleteItem;
 	
-	$scope.setCheckBox = function setCheckBox(value) {
+	function setCheckBox(value) {
 		$scope.itemCheck = value;
 		Items.editItem($scope.item.id, 'is_checked', value);
 	}
 
-	$scope.startItemEdit = function startEdit() {
+	function startItemEdit() {
 		$scope.isEditing = true;
-	};
+	}
 
-	$scope.saveItemEdit = function saveItemEdit(newItemName) {
+	function saveItemEdit(newItemName) {
 		if(newItemName.trim()) {
 			Items.editItem($scope.item.id, 'name', newItemName.trim());
 			$scope.newItemName = $scope.item.name;
@@ -28,18 +39,18 @@ function ItemCtrl($scope, $attrs, $state, $stateParams, Lists, Users, Items, Com
 		else {
 			$scope.cancelItemEdit();
 		}
-	};
+	}
 
-	$scope.cancelItemEdit = function cancelItemEdit() {
+	function cancelItemEdit() {
 		$scope.newItemName = $scope.item.name;
 		$scope.isEditing = false;
-	};
+	}
 
-	$scope.deleteItem = function deleteItem() {
+	function deleteItem() {
 		Items.remove($scope.item.id);
-	};
-
-	$scope.assignItem = function(userId) {
+	}
+	
+	function assignItem(userId) {
 		Items.editItem($scope.item.id, 'assigned_to_id', userId);
 	}
 }

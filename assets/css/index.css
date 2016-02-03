@@ -17,6 +17,7 @@ a.toggle-link.green {
 a.toggle-link.black {
 	font-size: 1.7em;
 	color: #000000;
+	display: block;
 }
 a.toggle-link:active,
 a.toggle-link:focus,

@@ -5,7 +5,6 @@ angular
 UserSelectCtrl.$inject = ['$scope', '$state', 'Users'];
 
 function UserSelectCtrl($scope, $state, Users) {
-	// bind the users model to the data service
 	$scope.users = Users.data;
 
 	$scope.selectUser = function selectUser(user) {

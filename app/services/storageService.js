@@ -4,12 +4,15 @@ angular
 
 function StorageServiceFactory() {
 	var keyPrefix = 'basket_';
+
 	function set(key, data) {
 		localStorage.setItem(keyPrefix + key, JSON.stringify(data));
 	}
+
 	function get(key) {
 		return JSON.parse(localStorage.getItem(keyPrefix + key));
 	}
+
 	function clearAll() {
 		localStorage.clear();
 		localStorage.removeItem(keyPrefix + 'auto_increment');
@@ -18,6 +21,7 @@ function StorageServiceFactory() {
 		localStorage.removeItem(keyPrefix + 'items');
 		localStorage.removeItem(keyPrefix + 'comments');
 	}
+	
 	return {
 		get: get,
 		set: set,

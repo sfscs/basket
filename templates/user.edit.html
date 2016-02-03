@@ -1,21 +1,3 @@
-<div class="container-fluid">
-	<div class="row basket-header">
-		<div class="col-xs-1">
-			<div class="glyphicon glyphicon-arrow-left basket-header-nav-icon" ng-click="goBack()"></div>
-		</div>
-		<div class="col-xs-10">
-			<h1>{{user.name}}</h1>
-		</div>
-		<div class="col-xs-1">
-			<div class="glyphicon glyphicon-pencil basket-header-nav-icon" ng-click="edit()"></div>
-		</div>
-	</div>
-</div>
-<div>
-editing USER
-</div>
-
-
 <div class="basket-header">
 	<div class="header-back-icons">
 		<div class="glyphicon glyphicon-arrow-left basket-header-nav-icon" ng-click="goBack()"></div>
@@ -31,12 +13,12 @@ editing USER
 			<div class="list-name-label" ng-click="startUserNameEdit()">{{user.name}} <span class="pencil-icon glyphicon glyphicon-pencil"></span></div>
 			<form class="list-name-edit">
 				<div class="input-group">
-					<div class="cancel-edit" ng-click="cancelUserNameEdit()">
+					<div class="cancel-edit cursor-pointer" ng-click="cancelUserNameEdit()">
 						<span class="glyphicon glyphicon-repeat"></span>
 					</div>
 					<input type="text" class="form-control" ng-model="newUserName">
 					<span class="input-group-btn">
-						<button class="btn btn-default" ng-click="saveuserNameEdit(newUserName)" type="submit">save</button>
+						<button class="btn btn-default" ng-click="saveUserNameEdit(newUserName)" type="submit">save</button>
 					</span>
 				</div>
 			</form>
