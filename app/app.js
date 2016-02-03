@@ -42,8 +42,14 @@ function config($stateProvider, $urlRouterProvider) {
 			templateUrl: 'templates/list.html'
 		})
 			.state('list.items', {
-				url: '/items',
-				templateUrl: 'templates/list.items.html'
+				url: "/items?sort&rev",
+				templateUrl: 'templates/list.items.html',
+				params: {
+					sort: {
+						value: "added",
+						squash: true
+					}
+				}
 			})
 			.state('list.edit', {
 				url: '/edit',

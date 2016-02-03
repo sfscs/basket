@@ -29,6 +29,13 @@ a.toggle-link:hover,
 a.toggle-link:visited {
 	text-decoration: none;
 }
+.glyphicon-repeat {
+	/* turn repeat into undo */
+	transform: scaleX(-1);
+	-moz-transform: scaleX(-1);
+	-webkit-transform: scaleX(-1);
+	-ms-transform: scaleX(-1);
+}
 
 /* layout styles */
 .container-list-container {
@@ -124,6 +131,33 @@ input.item-checkbox:checked + .checkbox-toggle {
     right: 20px;
     cursor: pointer;
 }
+.item-name-label {
+	cursor: pointer;
+}
+.item-name-edit {
+	display: none;
+}
+.item-name-edit-input {
+	
+}
+.editing .item-name-label {
+	display: none;
+}
+.editing .item-name-edit {
+    display: block;
+    height: 40px;
+    margin-right: 20px;
+}
+.cancel-edit {
+	cursor: pointer;
+    position: absolute;
+    top: 9px;
+    height: 20px;
+    width: 20px;
+    z-index: 5;
+    right: 65px;
+}
+
 /*** downward responsive adjustments ***/
 /* xxs */
 @media (max-width: 479px) {

@@ -42,7 +42,6 @@ function ListCtrl($scope, $state, $stateParams, Lists, Users, Items, Comments) {
 	}
 
 	$scope.getCommentOwner = function getCommentOwner(comment) {
-		console.log(comment);
 		var _user = Users.getUserById(comment.owner_id);
 		return _user;
 	}

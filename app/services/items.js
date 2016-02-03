@@ -15,6 +15,7 @@ function ItemsFactory(IdService, StorageService) {
 	items.getItemById = getItemById;
 	items.getItemIdx = getItemIdx;
 	items.getItemsByListId = getItemsByListId;
+	items.editItem = editItem;
 
 	function init() {
 		items.data = StorageService.get('items');
@@ -40,6 +41,12 @@ function ItemsFactory(IdService, StorageService) {
 			}
 		}, output);
 		return output;
+	}
+
+	function editItem(itemId, key, value) {
+		var idx = items.getItemIdx(itemId);
+		items.data[idx][key] = value;
+		saveToStorage();
 	}
 
 	function createNew(ownerId, listId, itemName) {
