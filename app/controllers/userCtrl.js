@@ -2,9 +2,9 @@ angular
 	.module('controllers')
 	.controller('UserCtrl', UserCtrl);
 	
-UserCtrl.$inject = ['$scope', '$state', '$stateParams', 'Lists', 'Users', 'Items', 'AppData', 'Comments'];
+UserCtrl.$inject = ['$scope', '$state', '$stateParams', 'Lists', 'Users', 'Items', 'Comments'];
 
-function UserCtrl($scope, $state, $stateParams, Lists, Users, Items, AppData, Comments) {
+function UserCtrl($scope, $state, $stateParams, Lists, Users, Items, Comments) {
 	// bind shoppingLists model to list data service
 	$scope.lists = Lists.data;
 

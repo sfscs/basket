@@ -55,7 +55,6 @@ function ItemsFactory(IdService, StorageService) {
 	};
 
 	function add(item) {
-		console.log(item);
 		items.data.push(item);
 		saveToStorage();
 	}

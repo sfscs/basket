@@ -52,11 +52,9 @@ function config($stateProvider, $urlRouterProvider) {
 	;
 }
 
-
-
-run.$inject = ['$rootScope', 'StorageService', 'IdService', 'Users', 'Lists', 'Items', 'Comments', 'AppData'];
+run.$inject = ['$rootScope', 'StorageService', 'IdService', 'Users', 'Lists', 'Items', 'Comments'];
 	
-function run($rootScope, StorageService, IdService, Users, Lists, Items, Comments, AppData) {
+function run($rootScope, StorageService, IdService, Users, Lists, Items, Comments) {
 	$rootScope.$on("$stateChangeError", console.log.bind(console));
 	if (StorageService.get('auto_increment') === null) {
 		StorageService.clearAll();
@@ -97,13 +95,7 @@ function run($rootScope, StorageService, IdService, Users, Lists, Items, Comment
 			Comments.createNew(newUser2, newItems[4].id, "I like tasty apples"),
 			Comments.createNew(newUser2, newItems[5].id, "For the dog")
 		]);
-
-		var newAppData = AppData.createNew();
-		newAppData.currentUser = newUser1.id;
-		newAppData.currentList = newList1.id;
-		StorageService.set('app_data', newAppData);
 	}
-	AppData.init();
 	IdService.init();
 	Users.init();
 	Lists.init();
