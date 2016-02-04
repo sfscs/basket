@@ -2,9 +2,9 @@ angular
 	.module('controllers')
 	.controller('ListCtrl', ListCtrl);
 	
-ListCtrl.$inject = ['$scope', '$state', '$stateParams', 'Lists', 'Users', 'Items', 'Comments', 'Mailto', '$window', '$compile', '$templateRequest', '$interpolate', '$filter'];
+ListCtrl.$inject = ['$scope', '$state', '$stateParams', 'Lists', 'Users', 'Items', 'Comments', 'Mailto', '$window', '$interpolate', '$filter'];
 
-function ListCtrl($scope, $state, $stateParams, Lists, Users, Items, Comments, Mailto, $window, $compile, $templateRequest, $interpolate, $filter) {
+function ListCtrl($scope, $state, $stateParams, Lists, Users, Items, Comments, Mailto, $window, $interpolate, $filter) {
 	$scope.items = Items.data;
 	$scope.users = Users.data;
 	$scope.comments = Comments.data;

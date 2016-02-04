@@ -2,9 +2,9 @@ angular
 	.module('controllers')
 	.controller('AppCtrl', AppCtrl);
 	
-AppCtrl.$inject = ['$rootScope', '$state', '$scope', '$state', '$window', 'StorageService', 'Users'];
+AppCtrl.$inject = ['$state', '$scope', '$state', '$window', 'StorageService'];
 
-function AppCtrl($rootScope, $state, $scope, $state, $window, StorageService, Users) {
+function AppCtrl($state, $scope, $state, $window, StorageService) {
 	$scope.resetBasketAppClearAll = resetBasketAppClearAll;
 	$scope.resetBasketAppDemoData = resetBasketAppDemoData;
 
