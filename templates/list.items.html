@@ -47,7 +47,7 @@
 						<div class="comment-block" ng-model="comments" ng-repeat="comment in filteredComments = (comments | commentForItem:item.id) track by comment.id">
 							{{comment.comment}} - {{getCommentOwner(comment).name}}
 						</div>
-						<form ng-submit="addComment(item.id, enteredComment)">
+						<form ng-submit="addComment(item.id, enteredComment); enteredComment=''">
 							<div class="input-group">
 							<input type="text" class="form-control" ng-model="enteredComment" placeholder="Add a comment...">
 							<span class="input-group-btn">
@@ -88,3 +88,18 @@
 		</form>
 	</div>
 </div>
+
+<div class="container-fluid v-margin-50">
+	<div class="col-md-6 col-md-offset-3">
+		<div class="text-center">Email this list:</div>
+		<form ng-submit="emailList(enteredEmail); enteredEmail = ''">
+			<div class="input-group">
+				<input type="text" class="form-control" ng-model="enteredEmail" placeholder="Recipient...">
+				<span class="input-group-btn">
+					<button class="btn btn-default" type="submit">Send!</button>
+				</span>
+			</div>
+		</form>
+	</div>
+</div>
+<div class="v-margin-50"></div>

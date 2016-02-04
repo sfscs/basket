@@ -52,7 +52,7 @@ function UsersFactory(IdService, StorageService) {
 		saveToStorage();
 	}
 
-	function remove(userID) {
+	function remove(userId) {
 		users.data.splice(getUserIdx(userId), 1);
 		saveToStorage();
 	}

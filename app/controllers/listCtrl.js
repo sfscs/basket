@@ -2,9 +2,9 @@ angular
 	.module('controllers')
 	.controller('ListCtrl', ListCtrl);
 	
-ListCtrl.$inject = ['$scope', '$state', '$stateParams', 'Lists', 'Users', 'Items', 'Comments'];
+ListCtrl.$inject = ['$scope', '$state', '$stateParams', 'Lists', 'Users', 'Items', 'Comments', 'Mailto', '$window', '$compile', '$templateRequest', '$interpolate', '$filter'];
 
-function ListCtrl($scope, $state, $stateParams, Lists, Users, Items, Comments) {
+function ListCtrl($scope, $state, $stateParams, Lists, Users, Items, Comments, Mailto, $window, $compile, $templateRequest, $interpolate, $filter) {
 	$scope.items = Items.data;
 	$scope.users = Users.data;
 	$scope.comments = Comments.data;
@@ -35,6 +35,7 @@ function ListCtrl($scope, $state, $stateParams, Lists, Users, Items, Comments) {
 	/* sharing */
 	$scope.isSharedWith = isSharedWith;
 	$scope.toggleShare = toggleShare;
+	$scope.emailList = emailList;
 
 	function addItem(enteredItemName) {
 		var _item = Items.createNew($stateParams.userId, $stateParams.listId, enteredItemName.trim());
@@ -110,5 +111,32 @@ function ListCtrl($scope, $state, $stateParams, Lists, Users, Items, Comments) {
 		else {
 			Lists.shareList(userId, $scope.list.id);
 		}
+	}
+
+	function emailList(emailAddress) {
+		var myScope = $scope;
+		var _items = $filter('itemInList')(myScope.items, myScope.list.id);
+		var output = '*** ' + myScope.list.name + ' ***' + "\n\n";
+		var buildLine = $interpolate('{{what}} - (assigned to {{who}}) - {{isDone}}' + "\n");
+		angular.forEach(_items, function(value) {
+			var isDone = 'not purchased';
+			if (value.is_checked) {
+				isDone = 'purchased!';
+			}
+			var _user = Users.getUserById(value.assigned_to_id);
+			var _context = {
+				what: value.name,
+				who: _user.name,
+				isDone: isDone
+			};
+			output = output + buildLine(_context);
+		});
+		output = output + "\n*** " + myScope.currentUser.name + " | " + Date() + " ***\n";
+		var options = {
+			subject: myScope.list.name,
+			body: output
+		};
+		var _href = Mailto.url(emailAddress, options);
+		$window.open(_href);
 	}
 }

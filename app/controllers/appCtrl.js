@@ -2,13 +2,25 @@ angular
 	.module('controllers')
 	.controller('AppCtrl', AppCtrl);
 	
-AppCtrl.$inject = ['$scope', '$state', '$window', 'StorageService'];
+AppCtrl.$inject = ['$rootScope', '$state', '$scope', '$state', '$window', 'StorageService', 'Users'];
 
-function AppCtrl($scope, $state, $window, StorageService) {
-	$scope.resetBasketApp = resetBasketApp;
+function AppCtrl($rootScope, $state, $scope, $state, $window, StorageService, Users) {
+	$scope.resetBasketAppClearAll = resetBasketAppClearAll;
+	$scope.resetBasketAppDemoData = resetBasketAppDemoData;
 
-	function resetBasketApp() {
+	function resetBasketAppDemoData() {
 		StorageService.clearAll();
+		$state.go('users');
+		$window.location.reload();
+	}
+
+	function resetBasketAppClearAll() {
+		StorageService.clearAll();
+		StorageService.set('auto_increment', 0);
+		StorageService.set('users', []);
+		StorageService.set('lists', []);
+		StorageService.set('items', []);
+		StorageService.set('comments', []);
 		$state.go('users');
 		$window.location.reload();
 	}

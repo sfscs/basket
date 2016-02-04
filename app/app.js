@@ -2,8 +2,8 @@ angular
 	.module('basketApp', [
 		'ui.bootstrap',
 		'ui.router',
-		'services',	
-		'directives',
+		'uz.mailto',
+		'services',
 		'filters',
 		'controllers',
 	])

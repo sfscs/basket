@@ -10,6 +10,7 @@
 		<script src="assets/lib/angular-ui-router-0.2.17.js"></script>
 		<script src="assets/lib/angular-animate-1.4.9.min.js"></script>
 		<script src="assets/lib/ui-bootstrap-tpls-1.1.2.js"></script>
+		<script src="assets/lib/angular-mailto.js"></script>
 		<script src="app/modules.js"></script>
 		<script src="app/services/storageService.js"></script>
 		<script src="app/services/idService.js"></script>
@@ -23,7 +24,6 @@
 		<script src="app/controllers/itemCtrl.js"></script>
 		<script src="app/controllers/appCtrl.js"></script>
 		<script src="app/filters.js"></script>
-		<script src="app/directives.js"></script>
 		<script src="app/app.js"></script>
 	</head>
 	<body ng-cloak ng-controller="AppCtrl">
@@ -35,30 +35,16 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="#">Basket</a>
+					<a class="navbar-brand" href="#">Basket</a> {{topUser}}
 				</div>
 				<div class="collapse navbar-collapse" uib-collapse="!isCollapsed">
 					<ul class="nav navbar-nav navbar-right">
-						<li class="active"><a href="#">Link </a></li>
-						<li><a href="#">Link</a></li>
-						<li class="dropdown" uib-dropdown>
-							<a href="#" class="dropdown-toggle" uib-dropdown-toggle ng-disabled="disabled">Dropdown <span class="caret"></span></a>
-							<ul class="dropdown-menu" uib-dropdown-menu>
-								<li><a href="#">Action</a></li>
-								<li><a href="#">Another action</a></li>
-								<li><a href="#">Something else here</a></li>
-								<li role="separator" class="divider"></li>
-								<li><a href="#">Separated link</a></li>
-								<li role="separator" class="divider"></li>
-								<li><a href="#">One more separated link</a></li>
-							</ul>
-						</li>
+						<li><a href="" ng-click="resetBasketAppDemoData()">Reset (load demo data)</a></li>
+						<li><a href="" ng-click="resetBasketAppClearAll()">Reset (clear all)</a></li>
 					</ul>
 				</div>
 			</div>
 		</nav>
 		<section ui-view></section>
-		<br><br>
-		<button ng-click="resetBasketApp()">Reset</button>
 	</body>
 </html>
