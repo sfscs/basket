@@ -1,0 +1,243 @@
+@charset "UTF-8";
+/* bootstrap overrides */
+body {
+	background-image: url(../img/background.png);
+}
+nav.navbar {
+	margin-bottom: 0;
+}
+h1 {
+	color: #73B183;
+	text-align: center;
+	margin: 0;
+}
+input[type=checkbox]:focus {
+	outline: none;
+}
+a.toggle-link.green {
+	color: #66987F;
+}
+a.toggle-link.black {
+	font-size: 1.7em;
+	color: #000000;
+	display: block;
+}
+a.toggle-link:active,
+a.toggle-link:focus,
+a.toggle-link:hover,
+a.toggle-link:visited {
+	text-decoration: none;
+}
+.glyphicon-repeat {
+	/* turn repeat into undo */
+	transform: scaleX(-1);
+	-moz-transform: scaleX(-1);
+	-webkit-transform: scaleX(-1);
+	-ms-transform: scaleX(-1);
+}
+.panel-body {
+	position: relative;
+	padding: 0;
+}
+
+/* layout styles */
+.container-list-container {
+	max-width: 680px;
+}
+.container-full {
+	margin: 0;
+	padding: 0;
+}
+.v-margin-50 {
+	margin-top: 50px;
+}
+.v-margin-100 {
+	margin-top: 100px;
+}
+
+/* header styles */
+.basket-header {
+	position: relative;
+	margin: 15px 0;
+	height: 40px;
+}
+.basket-header>div {
+	height: 40px;
+}
+.basket-header-nav-icon {
+	height: 40px;
+	padding-top: 10px;
+	font-size: 20px;
+	cursor: pointer;
+}
+.header-back-icons {
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+.header-extras-icons {
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+
+/* input styles */
+.cursor-pointer {
+	cursor: pointer;
+}
+.cursor-not-allowed {
+	cursor: not-allowed;
+}
+.input-editable:not(:focus) {
+	opacity: 0.7;
+}
+
+/* user select */
+.basket-users {
+	width: 320px;
+}
+.basket-users .panel {
+	height: 60px;
+}
+.basket-user-name {
+	margin-top: 10px;
+	font-size: 1.7em;
+}
+
+/* list select */
+.basket-lists {
+	width: 320px;
+}
+.basket-lists .panel {
+	height: 60px;
+}
+.basket-list-name {
+	font-size: 1.7em;
+}
+
+/* shopping list items */
+.panel.panel-items
+{
+	min-height: 80px;
+	margin-bottom: 2px;
+}
+.item-main {
+	padding: 0 60px;
+}
+.item-name {
+	font-size: 1.8em;
+}
+.item-sub {
+	font-size: 0.7em;
+}
+.comments-toggle {
+	display: inline-block;
+}
+.assignment-toggle {
+	display: inline-block;
+}
+
+/* checkbox styles */
+input.item-checkbox-hidden {
+	display: none;
+}
+.item-checkbox {
+	cursor: pointer;
+	width: 40px;
+	height: 40px;
+	position: absolute;
+	top: 15px;
+	left: 10px;
+}
+.checkbox-toggle {
+	width: 40px;
+	height: 40px;
+	background-image: url(../img/checkbox-sprite.png);
+	background-size: 40px 80px;
+	background-position: 0 0;
+	background-repeat: no-repeat;
+}
+input.item-checkbox-hidden:checked + .checkbox-toggle {
+	background-position: 0 -40px;
+}
+
+/* item edit and delete */
+.item-extras {
+	font-size: 1.7em;
+	width: 40px;
+	position: absolute;
+	top: 25px;
+	right: 20px;
+}
+.item-name-edit {
+	display: none;
+}
+.editing .item-name-label {
+	display: none;
+}
+.editing .item-name-edit {
+	display: block;
+	height: 36px;
+	margin-right: 20px;
+	margin-top: 5px;
+}
+.cancel-edit {
+	position: absolute;
+	top: 9px;
+	height: 20px;
+	width: 20px;
+	z-index: 5;
+	right: 65px;
+}
+
+/* list edit and delete */
+.list-name-label {
+	height: 36px;
+	font-size: 1.7em;
+	cursor: pointer;
+}
+.list-name-edit {
+	display: none;
+}
+
+.editing .list-name-label {
+	display: none;
+}
+.editing .list-name-edit {
+	display: block;
+	height: 36px;
+	margin-right: 20px;
+	margin-top: 5px;
+}
+.pencil-icon {
+	margin-left: 10px;
+	opacity: 0.6;
+}
+
+/*** downward responsive adjustments ***/
+/* xxs */
+@media (max-width: 479px) {
+	.container-list-container {
+		width: 100%;
+		padding: 0;
+	}
+	.header-back-icons {
+		left: 10px;
+	}
+	.header-extras-icons {
+		right: 10px;
+	}
+	.item-main {
+		padding-right: 30px;
+	}
+	.item-extras {
+		right: 0;
+	}
+	.toggle-label {
+		display: none;
+	}
+	.basket-users,
+	.basket-lists {
+		width: 100%;
+	}
+}

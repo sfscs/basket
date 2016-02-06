@@ -1,0 +1,29 @@
+{
+  "name": "basket-app",
+  "version": "1.0.0",
+  "description": "demo app for portfolio",
+  "main": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sfscs/basket.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sfscs/basket/issues"
+  },
+  "homepage": "https://github.com/sfscs/basket#readme",
+  "dependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-concat": "^0.5.1",
+    "grunt-contrib-copy": "^0.8.2",
+    "grunt-contrib-uglify": "^0.11.1",
+    "grunt-wrap": "^0.3.0"
+  },
+  "devDependencies": {
+    "grunt-contrib-clean": "^0.7.0"
+  }
+}

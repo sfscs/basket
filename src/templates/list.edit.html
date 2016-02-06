@@ -1,0 +1,40 @@
+<div class="basket-header">
+	<div class="header-back-icons">
+		<div class="glyphicon glyphicon-arrow-left basket-header-nav-icon" ng-click="goBack()"></div>
+	</div>
+	<div class="header-title">
+		<h1><span>List Settings</span></h1>
+	</div>
+</div>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-xs-12" ng-class="{editing: isEditingListName}">
+			<span class="big-label">Edit list name: </span>
+			<div class="list-name-label" ng-click="startListNameEdit()">{{list.name}} <span class="pencil-icon glyphicon glyphicon-pencil"></span></div>
+			<form class="list-name-edit">
+				<div class="input-group">
+					<div class="cancel-edit" ng-click="cancelListNameEdit()">
+						<span class="glyphicon glyphicon-repeat"></span>
+					</div>
+					<input type="text" class="form-control" ng-model="newListName">
+					<span class="input-group-btn">
+						<button class="btn btn-default" ng-click="saveListNameEdit(newListName)" type="submit">save</button>
+					</span>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="row v-margin-50">
+		<div class="col-xs-12">
+			<span class="big-label">Share with: </span>
+			<div>
+				<a class="toggle-link black" href="" ng-repeat="user in users | excludeUser:currentUser track by user.id" ng-click="toggleShare(user.id)">{{user.name}} <span ng-show="isSharedWith(user.id)" class="glyphicon glyphicon-ok"></span></a> 
+			</div>
+		</div>
+	</div>
+	<div class="row v-margin-50">
+		<div class="col-xs-12 text-center">
+			<button class="btn btn-default" type="button" ng-click="deleteList()">Delete List</button>
+		</div>
+	</div>
+</div>
