@@ -4,6 +4,10 @@ module.exports = function(grunt) {
 			dist: {
 				options: {},
 				src: 'dist/**'
+			},
+			build: {
+				options: {},
+				src: 'build/**'
 			}
 		},
 		copy: {
@@ -13,17 +17,18 @@ module.exports = function(grunt) {
 				src: ['**'],
 				dest: 'dist/assets/'
 			},
-			templates: {
-				expand: true,
-				cwd: 'src/templates/',
-				src: ['**'],
-				dest: 'dist/templates/'
-			},
 			index: {
 				expand: true,
 				cwd: 'src/',
 				src: ['index.html'],
 				dest: 'dist/'				
+			}
+		},
+		ngtemplates: {
+			templates: {
+				cwd: 'src',
+				src: 'templates/**.html',
+				dest: 'build/templates.js'
 			}
 		},
 		concat: {
@@ -42,6 +47,7 @@ module.exports = function(grunt) {
 					'src/js/controllers/itemCtrl.js',
 					'src/js/controllers/appCtrl.js',
 					'src/js/filters.js',
+					'build/templates.js',
 					'src/js/app.js'
 					],
 				dest: 'dist/js/application.js'
@@ -78,7 +84,8 @@ module.exports = function(grunt) {
 		}
 	});
 	require('load-grunt-tasks')(grunt);
-	grunt.registerTask('dev', ['clean', 'copy', 'concat', 'wrap:iife']);
-	grunt.registerTask('default', ['clean', 'copy', 'concat', 'wrap:iife', 'uglify:basic']);
+	grunt.loadNpmTasks('grunt-angular-templates');
+	grunt.registerTask('dev', ['clean', 'copy', 'ngtemplates', 'concat', 'wrap:iife']);
+	grunt.registerTask('default', ['clean', 'copy', 'ngtemplates', 'concat', 'wrap:iife', 'uglify:basic']);
 }
 

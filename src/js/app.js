@@ -6,6 +6,7 @@ angular
 		'services',
 		'filters',
 		'controllers',
+		'templates'
 	])
 	.config(config)
 	.run(run);
