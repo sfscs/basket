@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html ng-app='basketApp' ng-controller='AppCtrl'>
+	<head>
+		<meta charset="utf-8">
+		<title>Basket</title>
+		<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="assets/css/index.css">
+		<!-- 	
+		<script src="assets/lib/angular-1.4.9.js"></script>
+		<script src="assets/lib/angular-ui-router-0.2.17.js"></script>
+		<script src="assets/lib/ui-bootstrap-tpls-1.1.2.js"></script>
+		<script src="assets/lib/angular-mailto.js"></script>
+		<script src="app/modules.js"></script>
+		<script src="app/services/storageService.js"></script>
+		<script src="app/services/idService.js"></script>
+		<script src="app/services/lists.js"></script>
+		<script src="app/services/users.js"></script>
+		<script src="app/services/items.js"></script>
+		<script src="app/services/comments.js"></script>
+		<script src="app/controllers/userSelectCtrl.js"></script>
+		<script src="app/controllers/userCtrl.js"></script>
+		<script src="app/controllers/listCtrl.js"></script>
+		<script src="app/controllers/itemCtrl.js"></script>
+		<script src="app/controllers/appCtrl.js"></script>
+		<script src="app/filters.js"></script>
+		<script src="app/app.js"></script> 
+		-->
+		<script src="js/vendor.js"></script>
+		<script src="js/application.js"></script>
+	</head>
+	<body ng-cloak ng-controller="AppCtrl">
+		<nav class="navbar navbar-default">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" ng-click="isCollapsed = !isCollapsed">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="#">Basket</a> {{topUser}}
+				</div>
+				<div class="collapse navbar-collapse" uib-collapse="!isCollapsed">
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="//github.com/sfscs/basket">View on GitHub</a></li>
+						<li><a href="" ng-click="resetBasketAppDemoData()">Reset (load demo data)</a></li>
+						<li><a href="" ng-click="resetBasketAppClearAll()">Reset (clear all)</a></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<section ui-view></section>
+	</body>
+</html>
