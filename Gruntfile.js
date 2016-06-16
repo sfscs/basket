@@ -84,8 +84,6 @@ module.exports = function(grunt) {
 		}
 	});
 	require('load-grunt-tasks')(grunt);
-	grunt.loadNpmTasks('grunt-angular-templates');
 	grunt.registerTask('dev', ['clean', 'copy', 'ngtemplates', 'concat', 'wrap:iife']);
 	grunt.registerTask('default', ['clean', 'copy', 'ngtemplates', 'concat', 'wrap:iife', 'uglify:basic']);
 }
-
